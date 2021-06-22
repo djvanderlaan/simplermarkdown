@@ -10,7 +10,7 @@ title: Title
 
 And some text with `inline code`{.R}.
 
-``` {#codeblock1 .R}
+``` {#codeblock1 .R echo=FALSE results=TRUE}
 a <- 1+1
 b <- mean(a) + 10
 # Dit is commentaat
@@ -26,13 +26,14 @@ md_table(iris[1:20, ], caption = "Sample iris")
 
 ### And some text
 
-```{foo=bar}
+```
 Geen R-code
 ```
 
 
 
-```{.R fun=raw}
+```{.R 
+  fun=raw}
 md_figure({
   plot(iris$Sepal.Width, iris$Petal.Width)
 }, "test", caption = "My figure")
