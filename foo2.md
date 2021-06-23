@@ -32,9 +32,6 @@ Geen R-code
 
 
 
-```{.R 
-  fun=raw}
-md_figure({
+```{.R fun=figure name="test" caption="My figure"}
   plot(iris$Sepal.Width, iris$Petal.Width)
-}, "test", caption = "My figure")
 ```

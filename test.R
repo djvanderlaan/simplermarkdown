@@ -89,6 +89,21 @@ md_figure <- function(expr, name, caption = "", dir = "figures") {
 
 
 
+figure <- function(code, name, caption = "", dir = "figures", ...) {
+  fn <- file.path(dir, paste0(name, ".png"))
+  dir.create(dir, recursive = TRUE, showWarnings = FALSE)
+  png(fn)
+  on.exit(dev.off())
+  res <- capture.output(
+    source(exprs = str2expression(code), echo = FALSE)
+  )
+  raw_block(
+    paste0("\n![", caption, "](", fn, ")\n")
+  )
+}
+
+
+
 
 eval <- function(code, language = "R", id = "", echo = TRUE, 
     results = TRUE, ...) {
