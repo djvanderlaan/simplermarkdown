@@ -34,7 +34,15 @@ Geen R-code
 
 
 
-```{.R fun=figure name="test" caption="My figure"}
+```{.R fun=figure name="test" caption="My figure" device="pdf" width=8 
+  height=6}
 warning("FOO")
-plot(data$Sepal.Width, data$Petal.Width)
+plot(dta$Sepal.Width, dta$Petal.Width)
+```
+
+
+```{.R fun=raw}
+md_figure({
+plot(dta$Sepal.Length, dta$Petal.Length)
+}, name = "foo")
 ```

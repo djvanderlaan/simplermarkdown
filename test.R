@@ -1,67 +1,10 @@
 
+source("R/get_block.R")
+source("R/raw_block.R")
+source("R/markdown_block.R")
 
 
-get_block <- function(block) {
-  if (block$t != "CodeBlock") return(NULL)
-  id <- block$c[[1]][[1]]
-  language <- if (length(block$c[[1]][[2]]))
-    block$c[[1]][[2]][[1]] else ""
-  if (language != "R") return(NULL)
-  args1 <- if (length(block$c[[1]][[2]]) > 1) {
-    tail(unlist(block$c[[1]][[2]]), -1)
-  } else character(0L)
-  arguments <- get_block_arguments(block$c[[1]][[3]])
-  code <- block$c[[2]]
-  list(
-    id = id,
-    language = language,
-    arguments_single = args1,
-    arguments = arguments,
-    code = code
-  )
-}
-
-get_block_arguments <- function(arguments) {
-  sapply(arguments, function(a) {
-    val <- a[[2]]
-    if (val == "TRUE") { 
-      val <- TRUE 
-    } else if (val == "FALSE") {
-      val <- FALSE
-    } else if (grepl("^[0-9]+$", val)) {
-      val <- as.numeric(val)
-    }
-    res <- list(val)
-    names(res) <- a[[1]]
-    res
-  })
-}
-
-
-
-raw_block <- function(content, language = "markdown") {
-  list(
-    t = "RawBlock", 
-    c = list(language, paste0(content, collapse="\n"))
-  )
-}
-
-markdown_block <- function(content, language, id = "", ...) {
-  list(
-    t = "CodeBlock",
-    c = list(
-      list(
-        id,
-        list(language),
-        list()
-      ),
-      content
-    )
-  )
-}
-
-
-md_table <- function(tab, caption) {
+md_table <- function(tab, caption, as_character = FALSE, ...) {
   res <- vector("list", ncol(tab))
   for (i in seq_along(res)) {
     t <- format(tab[[i]])
@@ -75,53 +18,46 @@ md_table <- function(tab, caption) {
   if (!missing(caption) && !is.null(caption)) {
     res <- c(paste0(": ", caption), "", res)
   }
-  writeLines(res)
+  if (as_character) paste0(res, collapse="\n")  else writeLines(res)
 }
 
-md_figure <- function(expr, name, caption = "", dir = "figures") {
-  fn <- file.path(dir, paste0(name, ".png"))
+md_figure <- function(expr, name, caption = "", dir = "figures", 
+    device = c("png", "pdf"), as_character = FALSE, ...) {
   dir.create(dir, recursive = TRUE, showWarnings = FALSE)
-  png(fn)
+  device <- match.arg(device)
+  extension <- ""
+  if (device == "png") { 
+    fn <- file.path(dir, paste0(name, ".png"))
+    png(fn, ...)
+  } else if (device == "pdf") { 
+    fn <- file.path(dir, paste0(name, ".pdf"))
+    pdf(fn, ...)
+  }
   on.exit(dev.off())
-  expr
-  cat("\n![", caption, "](", fn, ")\n", sep = "")
+  res <- capture.output(
+    source(exprs = expr, echo = FALSE)
+  )
+  if (as_character) {
+    paste0("\n![", caption, "](", fn, ")\n")
+  } else {
+    cat("\n![", caption, "](", fn, ")\n", sep = "")
+  }
+  
 }
 
 
 table <- function(code, language = "R", id = "", caption = "", ...) {
   tab <- source(exprs = str2expression(code), echo = FALSE)
-  tab <- tab$value
-  res <- vector("list", ncol(tab))
-  for (i in seq_along(res)) {
-    t <- format(tab[[i]])
-    t <- format(c(names(tab)[i], t))
-    nc <- max(nchar(t))
-    line <- paste0(rep("-", nc), collapse ="")
-    t <- c(t[1], line, tail(t, -1))
-    res[[i]] <- t
-  }
-  res <- do.call(paste, c("", res, "", sep = "|"))
-  if (!missing(caption) && !is.null(caption)) {
-    res <- c(paste0(": ", caption), "", res)
-  }
-  paste0(res, collapse="\n")
-  res
+  md_table(tab$value, caption = caption, as_character = TRUE, ...)
 }
 
 
 figure <- function(code, language = "R", id = "", name, caption = "", 
-    dir = "figures", ...) {
-  fn <- file.path(dir, paste0(name, ".png"))
-  dir.create(dir, recursive = TRUE, showWarnings = FALSE)
-  png(fn)
-  on.exit(dev.off())
-  res <- capture.output(
-    source(exprs = str2expression(code), echo = FALSE)
-  )
-  paste0("\n![", caption, "](", fn, ")\n")
+    dir = "figures", device = c("png" ,"pdf"), ...) {
+  expr <- str2expression(code)
+  md_figure(expr, name = name, caption = caption, dir = dir, device = device, 
+    as_character = TRUE, ...)
 }
-
-
 
 
 eval <- function(code, language = "R", id = "", echo = TRUE, 
@@ -201,8 +137,12 @@ process <- function(con) {
   for (i in seq_along(dta$blocks)) {
     block <- get_block(dta$blocks[[i]])
     if (!is.null(block) && block$language == "R") {
-      fun <- if (exists("fun", block$arguments)) 
-        block$arguments$fun else default_fun
+      if (exists("fun", block$arguments)) {
+        fun <- block$arguments$fun 
+        block$arguments$fun <- NULL
+      } else {
+        fun <- default_fun
+      }
       res <- do.call(fun, c(
         list(code = block$code, id = block$id, language = block$language),
         block$arguments
@@ -218,3 +158,4 @@ writeLines(rjson::toJSON(new_dta), con = "foo2_proc.json")
 
 system("pandoc -s foo2_proc.json -o foo2_proc.md")
 system("pandoc -s foo2_proc.md -o foo2.pdf")
+system("pandoc -s foo2_proc.md -o foo2.html")
