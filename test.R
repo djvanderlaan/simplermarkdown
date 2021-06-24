@@ -42,7 +42,7 @@ get_block_arguments <- function(arguments) {
 raw_block <- function(content, language = "markdown") {
   list(
     t = "RawBlock", 
-    c = list(language, content)
+    c = list(language, paste0(content, collapse="\n"))
   )
 }
 
@@ -88,8 +88,29 @@ md_figure <- function(expr, name, caption = "", dir = "figures") {
 }
 
 
+table <- function(code, language = "R", id = "", caption = "", ...) {
+  tab <- source(exprs = str2expression(code), echo = FALSE)
+  tab <- tab$value
+  res <- vector("list", ncol(tab))
+  for (i in seq_along(res)) {
+    t <- format(tab[[i]])
+    t <- format(c(names(tab)[i], t))
+    nc <- max(nchar(t))
+    line <- paste0(rep("-", nc), collapse ="")
+    t <- c(t[1], line, tail(t, -1))
+    res[[i]] <- t
+  }
+  res <- do.call(paste, c("", res, "", sep = "|"))
+  if (!missing(caption) && !is.null(caption)) {
+    res <- c(paste0(": ", caption), "", res)
+  }
+  paste0(res, collapse="\n")
+  res
+}
 
-figure <- function(code, name, caption = "", dir = "figures", ...) {
+
+figure <- function(code, language = "R", id = "", name, caption = "", 
+    dir = "figures", ...) {
   fn <- file.path(dir, paste0(name, ".png"))
   dir.create(dir, recursive = TRUE, showWarnings = FALSE)
   png(fn)
@@ -97,9 +118,7 @@ figure <- function(code, name, caption = "", dir = "figures", ...) {
   res <- capture.output(
     source(exprs = str2expression(code), echo = FALSE)
   )
-  raw_block(
-    paste0("\n![", caption, "](", fn, ")\n")
-  )
+  paste0("\n![", caption, "](", fn, ")\n")
 }
 
 
@@ -163,33 +182,39 @@ raw <- function(code, language = "R", id = "", ...) {
 
 
 # Read pandoc parse tree from stdin
-con <- file("stdin")
-input <- readLines(con, warn = FALSE)
-close(con)
-dta <- rjson::fromJSON(input, simplify = FALSE)
+# con <- file("stdin")
+# input <- readLines(con, warn = FALSE)
+# close(con)
+# dta <- rjson::fromJSON(input, simplify = FALSE)
 
 
+system("pandoc -s foo2.md -t json > foo2.json")
+# dta <- rjson::fromJSON(file = "foo2.json", simplify = FALSE)
 
-default_fun = "eval"
-
-# Go over all of the blocks in the tree; check if they contain R code and
-# evaluate the code
-new_dta <- dta
-for (i in seq_along(dta$blocks)) {
+process <- function(con) {
+  dta <- rjson::fromJSON(file = con, simplify = FALSE)
+  default_fun = "eval"
   
-  block <- get_block(dta$blocks[[i]])
-  
-  if (!is.null(block) && block$language == "R") {
-    fun <- if (exists("fun", block$arguments)) 
-      block$arguments$fun else default_fun
-    res <- do.call(fun, c(
-      list(code = block$code, id = block$id, language = block$language),
-      block$arguments
-    ))
-    new_dta$blocks[[i]] <- res
+  # Go over all of the blocks in the tree; check if they contain R code and
+  # evaluate the code
+  new_dta <- dta
+  for (i in seq_along(dta$blocks)) {
+    block <- get_block(dta$blocks[[i]])
+    if (!is.null(block) && block$language == "R") {
+      fun <- if (exists("fun", block$arguments)) 
+        block$arguments$fun else default_fun
+      res <- do.call(fun, c(
+        list(code = block$code, id = block$id, language = block$language),
+        block$arguments
+      ))
+      new_dta$blocks[[i]] <- if (is.character(res)) raw_block(res) else res
+    }
   }
+  new_dta
 }
 
-  
+new_dta <- process("foo2.json")  
 writeLines(rjson::toJSON(new_dta), con = "foo2_proc.json")
 
+system("pandoc -s foo2_proc.json -o foo2_proc.md")
+system("pandoc -s foo2_proc.md -o foo2.pdf")

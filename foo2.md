@@ -16,12 +16,14 @@ b <- mean(a) + 10
 # Dit is commentaat
 c <- a+b
 c
+dta <- iris
 ```
 
 And some text
 
-``` {.R fun=raw}
-md_table(iris[1:20, ], caption = "Sample iris")
+``` {.R fun=table caption="Sample iris"}
+dta$foo <- dta$Sepal.Width/dta$Sepal.Length
+dta[1:20, ]
 ```
 
 ### And some text
@@ -33,5 +35,6 @@ Geen R-code
 
 
 ```{.R fun=figure name="test" caption="My figure"}
-  plot(iris$Sepal.Width, iris$Petal.Width)
+warning("FOO")
+plot(data$Sepal.Width, data$Petal.Width)
 ```
