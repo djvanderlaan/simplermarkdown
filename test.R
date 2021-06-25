@@ -2,12 +2,10 @@
 library(simplermarkdown)
 
 
-pandoc_to_pdf <- function(fn, ofn = paste0(fn, ".pdf")) {
-  cmd <- sprintf('pandoc "%s" -o "%s"', fn, ofn)
-  system(cmd)
-}
+example1 <- system.file("examples/example1.md", package = "simplermarkdown")
 
-weave("foo2.md", "foo2_woven.md")
-pandoc_to_pdf("foo2_woven.md", "foo2.pdf")
+weave(example1, "example1_woven.md")
+
+system("pandoc example1_woven.md -o example1.pdf")
 
 

@@ -15,6 +15,33 @@ parse the markdown and runs any code blocks tagged as being R-code. The result a
 new markdown file that can be further processed using pandoc and compiled to,
 for example, PDF or HTML.
 
+To process your markdown file do:
+
+```
+library(simplermarkdown)
+
+weave("mydocument.md", "mydocument_woven.md")
+```
+
+The resulting document `mydocument_woven.md` can then be processes further using
+pandoc. 
+
+Below is a ready to run example using an example document in the package:
+
+```
+library(simplermarkdown)
+
+example1 <- system.file("examples/example1.md", package = "simplermarkdown")
+
+weave(example1, "example1_woven.md")
+
+system("pandoc example1_woven.md -o example1.pdf")
+```
+
+
+
+## Writing markdown
+
 
 An example of a basic code block tagged as being R-code is shown below. Note
 that I use the `~` here to make it easier to write this example; the `` ` `` 
