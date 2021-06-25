@@ -15,7 +15,7 @@ parse the markdown and runs any code blocks tagged as being R-code. The result a
 new markdown file that can be further processed using pandoc and compiled to,
 for example, PDF or HTML.
 
-To process your markdown file do:
+To process your markdown file you can use the `weave` function:
 
 ```
 weave("mydocument.md", "mydocument_woven.md")
