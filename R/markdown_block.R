@@ -1,3 +1,7 @@
+
+
+#' @export
+#' 
 markdown_block <- function(content, language, id = "", ...) {
   list(
     t = "CodeBlock",

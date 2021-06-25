@@ -33,7 +33,6 @@ Geen R-code
 ```
 
 
-
 ```{.R fun=figure name="test" caption="My figure" device="pdf" width=8 
   height=6}
 warning("FOO")
