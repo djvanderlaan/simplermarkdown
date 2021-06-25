@@ -18,8 +18,6 @@ for example, PDF or HTML.
 To process your markdown file do:
 
 ```
-library(simplermarkdown)
-
 weave("mydocument.md", "mydocument_woven.md")
 ```
 
