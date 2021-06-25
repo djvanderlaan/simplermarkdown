@@ -10,7 +10,7 @@ title: Title
 
 And some text with `inline code`{.R}.
 
-``` {#codeblock1 .R echo=FALSE results=TRUE}
+``` {#codeblock1 .R echo=TRUE results=TRUE}
 a <- 1+1
 b <- mean(a) + 10
 # Dit is commentaat
