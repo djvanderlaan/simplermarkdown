@@ -1,6 +1,10 @@
 simplermarkdown
 ===============================================================================
 
+A experiment using the filter functionality present in pandoc to run
+R-code present in a markdown file and generate a new markdown file containing
+the result of the R-code.
+
 ## Prerequisites
 
 - Working installation of pandoc with pandoc available in the path. 
