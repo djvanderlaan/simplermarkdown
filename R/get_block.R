@@ -1,6 +1,6 @@
 
 get_block <- function(block) {
-  if (block$t != "CodeBlock") return(NULL)
+  if (block$t != "CodeBlock" && block$t != "Code") return(NULL)
   id <- block$c[[1]][[1]]
   language <- if (length(block$c[[1]][[2]]))
     block$c[[1]][[2]][[1]] else ""
