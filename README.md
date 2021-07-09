@@ -1,4 +1,4 @@
-simplermarkdown
+tinymarkdown
 ===============================================================================
 
 A experiment using the filter functionality present in pandoc to run
@@ -9,7 +9,7 @@ the result of the R-code.
 
 - Working installation of pandoc with pandoc available in the path. 
 - When compiling to pdf, a working installation of LaTeX.
-- And, of course, `simplermarkdown` installed.
+- And, of course, `tinymarkdown` installed.
 
 
 ## Usage
@@ -81,7 +81,7 @@ also specify your own functions.
 ### Tables
 
 To generate a table, we tell it to pass the code in the code block to the
-function `table` from the `simplermarkdown` package. This function will take the
+function `table` from the `tinymarkdown` package. This function will take the
 final result and generate a markdown table from that. Any arguments are passed
 on to the `table` function.
 
