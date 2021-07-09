@@ -5,6 +5,7 @@ load_all()
 system("pandoc -s work/test.md -t json > work/test.json")
 
 dta <- rjson::fromJSON(file = "work/test.json", simplify = FALSE)
+foo <- dta
 
 sapply(dta$blocks, function(c) c$t)
 
@@ -18,7 +19,8 @@ block$c[[1]]
 block$c[[9]]
 block$c[[11]]
 
-types <- c("Emph", "Para", "Plain")
+types <- c("Emph", "Para", "Plain", "BlockQuote")
+types_to_ignore <- c("Str", "Space", "Str", "Strong", "Link", "Image", "Table", "SoftBreak")
 
 blocks <- dta$blocks[[3]]$c
 
@@ -38,20 +40,44 @@ str <- function(code, languare = "R", id = "", ...) {
 }
 
 
+inline_block_number <- 1
+
+
+evaluate_inline_code <- function(block) {
+  b <- get_block(block)
+  if (!is.null(b) && b$language == "R") {
+    id <- if (b$id == "") "<unlabeled inline block>" else b$id
+    message("Evaluating code in inline block '", id, "'.")
+    block <- do.call(str, list(code = b$code, id = b$id, language = b$language))
+  }
+  block
+}
+
+evaluate_code_block <- function(block, default_fun = "eval") {
+  b <- get_block(block)
+  if (!is.null(b) && b$language == "R") {
+    id <- if (b$id == "") "<unlabeled code block>" else b$id
+    message("Evaluating code in block '", id, "'.")
+    if (exists("fun", b$arguments)) {
+      fun <- b$arguments$fun 
+      b$arguments$fun <- NULL
+    } else {
+      fun <- default_fun
+    }
+    res <- do.call(fun, c(
+      list(code = b$code, id = b$id, language = b$language), b$arguments))
+    if (is.character(res)) raw_block(res) else res
+  }
+  block
+}
+
 parse_blocks <- function(blocks) {
   for (i in seq_along(blocks)) {
     block <- blocks[[i]]
-    cat("===", i, "\n")
-    print(block$t)
     if (block$t == "Code") {
-      b <- get_block(block)
-      print(b)
-      message(block$c[[2]])
-      if (!is.null(b) && b$language == "R") {
-        message("Evaluating code")
-        block <- do.call(str, list(code = b$code, id = b$id, language = b$language))
-      }
-      #print(get_block(block))
+      block <- evaluate_inline_code(block)
+    } else if (block$t == "CodeBlock") {
+      block <- evaluate_code_block(block)
     } else if (block$t == "Header") {
       block$c[[3]] <- parse_blocks(block$c[[3]])
     } else if (block$t == "BulletList") {
@@ -62,16 +88,40 @@ parse_blocks <- function(blocks) {
       for (j in seq_along(block$c[[2]])) {
         block$c[[2]][[j]] <- parse_blocks(block$c[[2]][[j]])
       }
+    } else if (block$t == "Div") {
+      block$c[[2]] <- parse_blocks(block$c[[2]])
     } else if (block$t %in% types) {
       block$c <- parse_blocks(block$c)
-    } 
+    } else if (block$t %in% types_to_ignore) {
+      # do nothing
+    } else {
+      warning("Ignoring unsupported block type '", block$t, "'.");
+      print(block)
+    }
     blocks[[i]] <- block
   }
   blocks
 }
 
-tmp <- parse_blocks(dta$blocks)
 
-get_block
+tmp <- parse_blocks(foo$blocks)
 
-get_block(dta$blocks[[3]]$c[[9]])
+tmp2 <- dta
+tmp2$blocks <- tmp
+writeLines(rjson::toJSON(tmp2), "work/test_proc.json")
+system("pandoc -s work/test_proc.json -o work/test_proc.md")
+system("pandoc -s work/test_proc.md -o work/test_proc.pdf")
+
+
+
+foo <- function(i = 0, env) {
+  cat(env$bar, "\n")
+  env$bar <- env$bar + 1
+  if (i > 1) foo(i-1, env)
+}
+foobar <- function(i = 0) {
+  env <- environment()
+  env$bar <- 10
+  foo(i, env)
+}
+foobar(2)
