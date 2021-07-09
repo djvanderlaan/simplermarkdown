@@ -14,10 +14,10 @@ the result of the R-code.
 
 ## Usage
 
-First write a markdown file using pandoc markdown.  The package uses pandoc to
-parse the markdown and runs any code blocks tagged as being R-code. The result a
-new markdown file that can be further processed using pandoc and compiled to,
-for example, PDF or HTML.
+First write a markdown file using 
+[pandoc markdown](https://pandoc.org/MANUAL.html#pandocs-markdown).  The package uses pandoc to
+parse the markdown and runs any code blocks tagged as being R-code. The result a new markdown file
+that can be further processed using pandoc and compiled to, for example, PDF or HTML.
 
 To process your markdown file you can use the `mdweave` function:
 
