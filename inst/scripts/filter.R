@@ -1,6 +1,6 @@
 
 
-library(simplermarkdown)
+library(tinymarkdown)
 
 # Filter tree; read from srdin
 new_dta <- filter_pandoc_json_tree()  

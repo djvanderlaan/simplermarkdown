@@ -19,10 +19,10 @@ parse the markdown and runs any code blocks tagged as being R-code. The result a
 new markdown file that can be further processed using pandoc and compiled to,
 for example, PDF or HTML.
 
-To process your markdown file you can use the `weave` function:
+To process your markdown file you can use the `mdweave` function:
 
 ```
-weave("mydocument.md", "mydocument_woven.md")
+mdweave("mydocument.md", "mydocument_woven.md")
 ```
 
 The resulting document `mydocument_woven.md` can then be processes further using
@@ -31,11 +31,11 @@ pandoc.
 Below is a ready to run example using an example document in the package:
 
 ```
-library(simplermarkdown)
+library(tinymarkdown)
 
-example1 <- system.file("examples/example1.md", package = "simplermarkdown")
+example1 <- system.file("examples/example1.md", package = "tinymarkdown")
 
-weave(example1, "example1_woven.md")
+mdweave(example1, "example1_woven.md")
 
 system("pandoc example1_woven.md -o example1.pdf")
 ```
@@ -64,6 +64,18 @@ suppress either showing the code or the output:
 a <- 1+1
 ~~~
 ```
+
+Inline code is also supported. 
+
+```
+The average value of `Sepal.Width` is `mean(iris$Sepal.Width)`{.R} and 
+that of `Petal.Width` is `mean(iris$Petal.Width)`{.R}.
+```
+
+The final result of inline code will always be included as text into the resulting markdown
+document. In case of code blocks the code is passed on to a function. Depending on the function used
+this can result in a code blocks with the evaluated code (the default), tables, figures and you can
+also specify your own functions.
 
 
 ### Tables

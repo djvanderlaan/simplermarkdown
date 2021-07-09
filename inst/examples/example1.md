@@ -8,7 +8,7 @@ title: Title
 - List item 
 - Another list item
 
-And some text with `inline code`{.R}.
+And some text with `inline code`.
 
 ``` {#codeblock1 .R echo=TRUE results=TRUE}
 a <- 1+1
@@ -27,6 +27,9 @@ dta[1:20, ]
 ```
 
 ### And some text
+
+The mean of `Sepal.Width` is `m<-round(mean(dta$Sepal.Width), 2)`{.R}. 
+This is `ifelse(m>2, "larger", "smaller")`{.R} than 2.
 
 ```
 Geen R-code
