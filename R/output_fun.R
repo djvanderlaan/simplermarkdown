@@ -38,3 +38,11 @@ raw <- function(code, language = "R", id = "", ...) {
   raw_block(res)
 }
 
+#' @export 
+#' 
+str <- function(code, languare = "R", id = "", ...) {
+  res <- source(exprs = str2expression(code), echo = FALSE)
+  res <- paste0(as.character(res$value), collapse="\n")
+  str_block(res)
+}
+
