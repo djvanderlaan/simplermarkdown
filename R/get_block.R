@@ -34,5 +34,3 @@ get_block_arguments <- function(arguments) {
     res
   })
 }
-
-

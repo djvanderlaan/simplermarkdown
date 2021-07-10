@@ -1,6 +1,6 @@
 
-#' @importFrom rjson fromJSON
 #' @export
+#' @importFrom rjson fromJSON
 #' 
 filter_pandoc_json_tree <- function(con) {
   if (missing(con)) {
@@ -19,36 +19,6 @@ filter_pandoc_json_tree <- function(con) {
     verbosity = verbosity)
   dta
 }
-
-
-evaluate_inline_code <- function(block, verbosity = 1) {
-  b <- get_block(block)
-  if (!is.null(b) && b$language == "R") {
-    id <- if (b$id == "") "<unlabeled inline block>" else b$id
-    if (verbosity > 0) message("Evaluating code in inline block '", id, "'.")
-    block <- do.call(str, list(code = b$code, id = b$id, language = b$language))
-  }
-  block
-}
-
-evaluate_code_block <- function(block, default_fun = "eval", verbosity = 1) {
-  b <- get_block(block)
-  if (!is.null(b) && b$language == "R") {
-    id <- if (b$id == "") "<unlabeled code block>" else b$id
-    if (verbosity > 0) message("Evaluating code in block '", id, "'.")
-    if (exists("fun", b$arguments)) {
-      fun <- b$arguments$fun 
-      b$arguments$fun <- NULL
-    } else {
-      fun <- default_fun
-    }
-    res <- do.call(fun, c(
-      list(code = b$code, id = b$id, language = b$language), b$arguments))
-    block <- if (is.character(res)) raw_block(res) else res
-  }
-  block
-}
-
 
 
 parse_blocks <- function(blocks, verbosity = 1, default_fun = "eval") {
@@ -90,4 +60,33 @@ parse_blocks <- function(blocks, verbosity = 1, default_fun = "eval") {
   }
   blocks
 }
+
+evaluate_inline_code <- function(block, verbosity = 1) {
+  b <- get_block(block)
+  if (!is.null(b) && b$language == "R") {
+    id <- if (b$id == "") "<unlabeled inline block>" else b$id
+    if (verbosity > 0) message("Evaluating code in inline block '", id, "'.")
+    block <- do.call(str, list(code = b$code, id = b$id, language = b$language))
+  }
+  block
+}
+
+evaluate_code_block <- function(block, default_fun = "eval", verbosity = 1) {
+  b <- get_block(block)
+  if (!is.null(b) && b$language == "R") {
+    id <- if (b$id == "") "<unlabeled code block>" else b$id
+    if (verbosity > 0) message("Evaluating code in block '", id, "'.")
+    if (exists("fun", b$arguments)) {
+      fun <- b$arguments$fun 
+      b$arguments$fun <- NULL
+    } else {
+      fun <- default_fun
+    }
+    res <- do.call(fun, c(
+      list(code = b$code, id = b$id, language = b$language), b$arguments))
+    block <- if (is.character(res)) raw_block(res) else res
+  }
+  block
+}
+
 

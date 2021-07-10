@@ -1,6 +1,17 @@
-
-
-
+#' Generate a markdown table from a data.frame
+#'
+#' @param tab a data frame
+#' @param caption text of the caption. When omitted no caption is added to the
+#'   table.
+#' @param as_character return the table as a character vector. If \code{FALSE}
+#'   the table will be written to the standard output. 
+#' @param ... unused. 
+#'
+#' @return
+#' Then \code{as_character = FALSE} a character vector with the markdown
+#' containing the table is returned.  Otherwise, 
+#' nothing is returned; the markdown is then written to the console.
+#'
 #' @export
 #' 
 md_table <- function(tab, caption, as_character = FALSE, ...) {
