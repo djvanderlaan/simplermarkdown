@@ -21,7 +21,7 @@ md_table <- function(tab, caption, as_character = FALSE, ...) {
     t <- format(c(names(tab)[i], t))
     nc <- max(nchar(t))
     line <- paste0(rep("-", nc), collapse ="")
-    t <- c(t[1], line, tail(t, -1))
+    t <- c(t[1], line, utils::tail(t, -1))
     res[[i]] <- t
   }
   res <- do.call(paste, c("", res, "", sep = "|"))

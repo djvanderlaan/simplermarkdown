@@ -20,6 +20,19 @@
 #' arguments are passed on to those functions. Other filter functions ignore the 
 #' additional arguments. 
 #'
+#' It is also possible to write custom output filter. An output filter should have
+#' \code{code}, \code{language} and \code{id} as its first three arguments. It 
+#' should either return a character vector containing the markdown that should be
+#' included in the resulting markdown file or an object that can be directly 
+#' included in the pandoc parse tree. If the function does not return a character
+#' vector it is assumed the latter is returned. \code{tinymarkdown} defines a
+#' small number of valid object constructors: \code{\link{raw_block}} and
+#' \code{\link{markdown_block}}.
+#'
+#' The custom function should be available when running the markdown document
+#' through pandoc. The easiest way is to include or define the function in the
+#' markdown document before using it. 
+#'
 #' @rdname output_fun
 #' @export
 #' 
@@ -43,7 +56,7 @@ figure <- function(code, language = "R", id = "", ...) {
 #' 
 eval <- function(code, language = "R", id = "", echo = TRUE, 
     results = TRUE, ...) {
-  res <- capture.output(
+  res <- utils::capture.output(
     source(exprs = str2expression(code), echo = echo, print.eval = results)
   )
   res <- paste0(res, collapse="\n")
@@ -55,7 +68,7 @@ eval <- function(code, language = "R", id = "", echo = TRUE,
 #' @export
 #' 
 raw <- function(code, language = "R", id = "", ...) {
-  res <- capture.output(
+  res <- utils::capture.output(
     source(exprs = str2expression(code), echo = FALSE)
   )
   res <- paste0(res, collapse="\n")
@@ -65,7 +78,7 @@ raw <- function(code, language = "R", id = "", ...) {
 #' @rdname output_fun
 #' @export 
 #' 
-str <- function(code, languare = "R", id = "", ...) {
+str <- function(code, language = "R", id = "", ...) {
   res <- source(exprs = str2expression(code), echo = FALSE)
   res <- paste0(as.character(res$value), collapse="\n")
   str_block(res)

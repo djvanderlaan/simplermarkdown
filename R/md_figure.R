@@ -32,13 +32,13 @@ md_figure <- function(expr, name, caption = "", dir = "figures",
   extension <- ""
   if (device == "png") { 
     fn <- file.path(dir, paste0(name, ".png"))
-    png(fn, ...)
+    grDevices::png(fn, ...)
   } else if (device == "pdf") { 
     fn <- file.path(dir, paste0(name, ".pdf"))
-    pdf(fn, ...)
+    grDevices::pdf(fn, ...)
   }
-  on.exit(dev.off())
-  res <- capture.output(
+  on.exit(grDevices::dev.off())
+  res <- utils::capture.output(
     source(exprs = expr, echo = FALSE)
   )
   if (as_character) {

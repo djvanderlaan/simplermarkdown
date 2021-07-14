@@ -6,7 +6,7 @@ get_block <- function(block) {
     block$c[[1]][[2]][[1]] else ""
   if (language != "R") return(NULL)
   args1 <- if (length(block$c[[1]][[2]]) > 1) {
-    tail(unlist(block$c[[1]][[2]]), -1)
+    utils::tail(unlist(block$c[[1]][[2]]), -1)
   } else character(0L)
   arguments <- get_block_arguments(block$c[[1]][[3]])
   code <- block$c[[2]]

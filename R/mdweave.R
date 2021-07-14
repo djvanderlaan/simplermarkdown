@@ -2,7 +2,7 @@
 #'
 #' @param fn filename of the markdown file.
 #' @param ofn name of the resulting markdown file.
-#' @param extra_argument extra arguments passed on to pandoc. Should be a length 1 
+#' @param extra_arguments extra arguments passed on to pandoc. Should be a length 1 
 #'  character vector.
 #' @param cmd command used to run pandoc. See details. 
 #'

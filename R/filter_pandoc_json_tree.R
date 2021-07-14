@@ -1,5 +1,4 @@
 
-#' @export
 #' @importFrom rjson fromJSON
 #' 
 filter_pandoc_json_tree <- function(con) {
