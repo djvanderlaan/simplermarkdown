@@ -1,6 +1,6 @@
 #' Run the code in a markdown file and generate a new markdown file
 #'
-#' @param fn filename of the markdown file.
+#' @param fn filename of the markdown file (should use pandoc markdown).
 #' @param ofn name of the resulting markdown file.
 #' @param extra_arguments extra arguments passed on to pandoc. Should be a length 1 
 #'  character vector.

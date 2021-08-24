@@ -21,7 +21,7 @@ filter_pandoc_json_tree <- function(con) {
 
 
 parse_blocks <- function(blocks, verbosity = 1, default_fun = "eval", 
-    eval_block = evaluate_code_block) {
+    eval_block = evaluate_code_block, eval_inline = evaluate_inline_code) {
   # The following type can all be handled the same way
   basic_types <- c("Emph", "Para", "Plain", "BlockQuote")
   # In the following types of content we will not look for code blocks and these
@@ -33,22 +33,27 @@ parse_blocks <- function(blocks, verbosity = 1, default_fun = "eval",
   for (i in seq_along(blocks)) {
     block <- blocks[[i]]
     if (block$t == "Code") {
-      block <- evaluate_inline_code(block, verbosity = verbosity)
+      block <- eval_inline(block, verbosity = verbosity)
     } else if (block$t == "CodeBlock") {
       block <- eval_block(block, verbosity = verbosity, 
         default_fun = default_fun)
     } else if (block$t == "Header") {
-      block$c[[3]] <- parse_blocks(block$c[[3]], verbosity)
+      block$c[[3]] <- parse_blocks(block$c[[3]], verbosity, default_fun,
+        eval_block, eval_inline)
     } else if (block$t == "BulletList") {
       for (j in seq_along(block$c)) 
-        block$c[[j]] <- parse_blocks(block$c[[j]], verbosity)
+        block$c[[j]] <- parse_blocks(block$c[[j]], verbosity, default_fun,
+        eval_block, eval_inline)
     } else if (block$t == "OrderedList") {
       for (j in seq_along(block$c[[2]])) 
-        block$c[[2]][[j]] <- parse_blocks(block$c[[2]][[j]], verbosity)
+        block$c[[2]][[j]] <- parse_blocks(block$c[[2]][[j]], verbosity, default_fun,
+        eval_block, eval_inline)
     } else if (block$t == "Div") {
-      block$c[[2]] <- parse_blocks(block$c[[2]], verbosity)
+      block$c[[2]] <- parse_blocks(block$c[[2]], verbosity, default_fun,
+        eval_block, eval_inline)
     } else if (block$t %in% basic_types) {
-      block$c <- parse_blocks(block$c, verbosity)
+      block$c <- parse_blocks(block$c, verbosity, default_fun,
+        eval_block, eval_inline)
     } else if (block$t %in% types_to_ignore) {
       # do nothing
     } else {

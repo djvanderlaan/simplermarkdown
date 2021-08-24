@@ -1,42 +1,25 @@
-library(devtools)
-document()
-load_all()
 
-system("pandoc -s work/test.md -t json > work/test.json")
-dta <- filter_pandoc_json_tree("work/test.json")
-writeLines(rjson::toJSON(dta), "work/test_proc.json")
-
-system("pandoc -s work/test_proc.json -o work/test_proc.md")
-system("pandoc -s work/test_proc.md -o work/test_proc.pdf")
-
-
-
-
-
-tmp <- rjson::fromJSON(file = "work/test.json", simplify = FALSE)
-
-default_fun <- "eval"
-verbosity   <- 1
-# Go over all of the blocks in the tree; check if they contain R code and
-# evaluate the code
-parse_blocks(tmp$blocks, default_fun = default_fun, 
-  verbosity = verbosity, eval_block = gather_code)
-
-
-fn <- "inst/examples/iris.md"
-tmp_ofn <- tempfile(fileext = ".json")
-cmd = 'pandoc %3$s -s "%1$s" -o "%2$s"'
-extra_arguments = ""
-ofn <- "work/test.R"
-cmd <- sprintf(cmd, fn, tmp_ofn, extra_arguments)
-system(cmd)
-
-code <- mdtangle(tmp_ofn)
-
-file.remove(tmp_ofn)
-
-
-
+#' Extract code from the code blocks in a markdown file
+#'
+#' @param fn filename of the markdown file (should use pandoc markdown).
+#' @param ofn name of the resulting R-script
+#' @param extra_arguments extra arguments passed on to pandoc. Should be a length 1 
+#'  character vector.
+#' @param cmd command used to run pandoc. See details. 
+#'
+#' @details
+#' \code{mdtangle} calls pandoc. Pandoc will parse the markdown document and
+#' pass the parsed file to a filter that extracts the R-code and writes this
+#' code to a file. 
+#'
+#' Using the \code{cmd} argument the exact command used to run pandoc can be
+#' modified. It is passed on to \code{\link{sprintf}} and uses positional 
+#' arguments: (1) name of the input file, (2) location of the pandoc filer that
+#' is used to run the R-code, (3) name of the output file, (4) the value of 
+#' \code{extra_arguments}.
+#'
+#' @export
+#' 
 mdtangle <- function(fn, ofn = paste0(fn, ".md"), 
     extra_arguments = "", cmd = 'pandoc %3$s -s "%1$s" -o "%2$s"') {
   tmp_ofn <- tempfile(fileext = ".json")
@@ -66,9 +49,3 @@ mdtangle <- function(fn, ofn = paste0(fn, ".md"),
   writeLines(code, con = ofn)
 }
 
-
-
-writeLines(mdtangle("work/test.json"))
-
-writeLines(code)
-code
