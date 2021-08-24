@@ -1,5 +1,3 @@
-
-
 #' Output filters for code blocks in markdown
 #'
 #' @param code character vector containing the code of the code block
@@ -15,7 +13,7 @@
 #'   included.
 #'
 #' @details
-#' The filter functions \code{table} and \code{figure} call 
+#' The filter functions \code{tab} and \code{fig} call 
 #' \code{\link{md_table}} and \code{\link{md_figure}} respectively; additional
 #' arguments are passed on to those functions. Other filter functions ignore the 
 #' additional arguments. 
@@ -30,13 +28,13 @@
 #' \code{\link{markdown_block}}.
 #'
 #' The custom function should be available when running the markdown document
-#' through pandoc. The easiest way is to include or define the function in the
-#' markdown document before using it. 
+#' through pandoc. The easiest way is to \code{\link{source}} or define the 
+#' function in the markdown document before using it. 
 #'
 #' @rdname output_fun
 #' @export
 #' 
-table <- function(code, language = "R", id = "",  ...) {
+tab <- function(code, language = "R", id = "",  ...) {
   tab <- source(exprs = str2expression(code), echo = FALSE)
   md_table(tab$value, as_character = TRUE, ...)
 }
@@ -45,7 +43,7 @@ table <- function(code, language = "R", id = "",  ...) {
 #' @rdname output_fun
 #' @export
 #' 
-figure <- function(code, language = "R", id = "", ...) {
+fig <- function(code, language = "R", id = "", ...) {
   expr <- str2expression(code)
   md_figure(expr, as_character = TRUE, ...)
 }

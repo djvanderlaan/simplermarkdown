@@ -8,11 +8,11 @@
 #'   commands. The expressions are evaluated in the global environment.
 #' @param name the name of the figure. 
 #' @param caption text of the caption. When omitted no caption is added to the
-#'   table.
+#'   figure.
 #' @param dir name of the directory in which to store the file. 
 #' @param device the graphics device to use for creating the image.
-#' @param as_character return the table as a character vector. If \code{FALSE}
-#'   the table will be written to the standard output. 
+#' @param as_character return the figure as a character vector. If \code{FALSE}
+#'   the figure will be written to the standard output. 
 #' @param ... passed on to the graphics device. 
 #'
 #' @details
