@@ -20,7 +20,8 @@ filter_pandoc_json_tree <- function(con) {
 }
 
 
-parse_blocks <- function(blocks, verbosity = 1, default_fun = "eval") {
+parse_blocks <- function(blocks, verbosity = 1, default_fun = "eval", 
+    eval_block = evaluate_code_block) {
   # The following type can all be handled the same way
   basic_types <- c("Emph", "Para", "Plain", "BlockQuote")
   # In the following types of content we will not look for code blocks and these
@@ -34,7 +35,7 @@ parse_blocks <- function(blocks, verbosity = 1, default_fun = "eval") {
     if (block$t == "Code") {
       block <- evaluate_inline_code(block, verbosity = verbosity)
     } else if (block$t == "CodeBlock") {
-      block <- evaluate_code_block(block, verbosity = verbosity, 
+      block <- eval_block(block, verbosity = verbosity, 
         default_fun = default_fun)
     } else if (block$t == "Header") {
       block$c[[3]] <- parse_blocks(block$c[[3]], verbosity)
