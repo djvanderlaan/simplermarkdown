@@ -20,8 +20,11 @@
 #'
 #' @export
 #' 
-mdweave <- function(fn, ofn = paste0(fn, ".md"), 
+mdweave <- function(fn, ofn = file_subs_ext(basename(fn), ".md", FALSE), 
     extra_arguments = "", cmd = 'pandoc %4$s -s "%1$s" --filter "%2$s" -o "%3$s"') {
+  if (ofn == fn) 
+    stop("Output file (ofn) would overwrite input file (fn). ", 
+      "Specify another output filename (ofn).")
   script <- system.file("scripts/filter.R", package = "tinymarkdown")
   cmd <- sprintf(cmd, fn, script, ofn, extra_arguments)
   system(cmd)
