@@ -5,6 +5,7 @@
 #' @param extra_arguments extra arguments passed on to pandoc. Should be a length 1 
 #'  character vector.
 #' @param cmd command used to run pandoc. See details. 
+#' @param ... ignored
 #'
 #' @details
 #' \code{mdtangle} calls pandoc. Pandoc will parse the markdown document and
@@ -17,10 +18,13 @@
 #' to which the parsed document is written, (3) the value of 
 #' \code{extra_arguments}.
 #'
+#' @return 
+#' Returns the filename of the generated file. 
+#'
 #' @export
 #' 
-mdtangle <- function(fn, ofn = paste0(fn, ".R"), 
-    extra_arguments = "", cmd = 'pandoc %3$s -s "%1$s" -t json -o "%2$s"') {
+mdtangle <- function(fn, ofn = file_subs_ext(basename(fn), ".R"), 
+    extra_arguments = "", cmd = 'pandoc %3$s -s "%1$s" -t json -o "%2$s"', ...) {
   tmp_ofn <- tempfile(fileext = ".json")
   on.exit(file.remove(tmp_ofn))
   cmd <- sprintf(cmd, fn, tmp_ofn, extra_arguments)
@@ -33,7 +37,7 @@ mdtangle <- function(fn, ofn = paste0(fn, ".R"),
     b <- get_block(block)
     if (!is.null(b) && b$language == "R") {
       id <- if (b$id == "") "<unlabeled code block>" else b$id
-      if (verbosity > 0) message("Evaluating code in block '", id, "'.")
+      if (verbosity > 0) message("Tangling code in block '", id, "'.")
       code <<- c(code, paste("#", id), b$code, "")
     }
     block
@@ -46,5 +50,6 @@ mdtangle <- function(fn, ofn = paste0(fn, ".R"),
   dta$blocks <- parse_blocks(dta$blocks, default_fun = default_fun, 
     verbosity = verbosity, eval_block = gather_code, eval_inline = ignore_inline)
   writeLines(code, con = ofn)
+  invisible(ofn)
 }
 

@@ -2,9 +2,11 @@
 
 export(eval)
 export(fig)
+export(file_subs_ext)
 export(markdown_block)
 export(md_figure)
 export(md_table)
+export(mdtangle)
 export(mdweave)
 export(raw)
 export(raw_block)
