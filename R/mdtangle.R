@@ -1,4 +1,3 @@
-
 #' Extract code from the code blocks in a markdown file
 #'
 #' @param fn filename of the markdown file (should use pandoc markdown).
@@ -9,19 +8,19 @@
 #'
 #' @details
 #' \code{mdtangle} calls pandoc. Pandoc will parse the markdown document and
-#' pass the parsed file to a filter that extracts the R-code and writes this
-#' code to a file. 
+#' write the parsed file to temporary file. This file is read by 
+#' \code{mdtangle} and the code is extracted from it and written to \code{ofn}.
 #'
 #' Using the \code{cmd} argument the exact command used to run pandoc can be
 #' modified. It is passed on to \code{\link{sprintf}} and uses positional 
-#' arguments: (1) name of the input file, (2) location of the pandoc filer that
-#' is used to run the R-code, (3) name of the output file, (4) the value of 
+#' arguments: (1) name of the input file, (2) location of the temporary file
+#' to which the parsed document is written, (3) the value of 
 #' \code{extra_arguments}.
 #'
 #' @export
 #' 
-mdtangle <- function(fn, ofn = paste0(fn, ".md"), 
-    extra_arguments = "", cmd = 'pandoc %3$s -s "%1$s" -o "%2$s"') {
+mdtangle <- function(fn, ofn = paste0(fn, ".R"), 
+    extra_arguments = "", cmd = 'pandoc %3$s -s "%1$s" -t json -o "%2$s"') {
   tmp_ofn <- tempfile(fileext = ".json")
   on.exit(file.remove(tmp_ofn))
   cmd <- sprintf(cmd, fn, tmp_ofn, extra_arguments)

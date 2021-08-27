@@ -72,3 +72,13 @@ writeLines(mdtangle("work/test.json"))
 
 writeLines(code)
 code
+
+
+
+fn <- "inst/examples/iris.md"
+
+fn_path <- dirname(fn)
+fn_base   <- basename(tools::file_path_sans_ext(fn))
+fn_ext  <- tools::file_ext(fn)
+
+
