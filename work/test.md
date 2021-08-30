@@ -18,6 +18,7 @@ b <- mean(a) + 10
 c <- a+b
 c
 dta <- iris
+print(Sys.getenv("MDOUTPUTDIR"))
 ```
 
 And some text with [An url](http://somwhere.com) and some more text.

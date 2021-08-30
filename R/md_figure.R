@@ -25,7 +25,8 @@
 #' 
 #' @export
 #' 
-md_figure <- function(expr, name, caption = "", dir = "figures", 
+md_figure <- function(expr, name, caption = "", 
+    dir = file.path(Sys.getenv("MDOUTDIR", "."), "figures"), 
     device = c("png", "pdf"), as_character = FALSE, ...) {
   dir.create(dir, recursive = TRUE, showWarnings = FALSE)
   device <- match.arg(device)
