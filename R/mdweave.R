@@ -34,5 +34,6 @@ mdweave <- function(fn, ofn = file_subs_ext(basename(fn), ".md", FALSE),
   on.exit(Sys.unsetenv("MDOUTDIR"))
   # Run pandoc
   system(cmd)
+  invisible(ofn)
 }
 

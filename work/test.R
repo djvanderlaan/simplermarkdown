@@ -12,4 +12,12 @@ system("pandoc -s work/test_proc.md -o work/test_proc.pdf")
 
 
 
+mdweave("inst/examples/iris.md", "work/iris.md")
+
+system("pandoc work/iris.md -t latex -o work/iris.pdf")
+
+system("pandoc work/iris.md --standalone -t latex -o work/iris.tex")
+
+system("pandoc work/iris.md --standalone -t html -o work/iris.html")
+
 
