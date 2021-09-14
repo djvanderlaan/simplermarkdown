@@ -5,6 +5,7 @@
 #' @param extra_arguments extra arguments passed on to pandoc. Should be a length 1 
 #'  character vector.
 #' @param cmd command used to run pandoc. See details. 
+#' @param ... ignored
 #'
 #' @details
 #' \code{mdweave} calls pandoc. Pandoc will parse the markdown document and
@@ -21,7 +22,7 @@
 #' @export
 #' 
 mdweave <- function(fn, ofn = file_subs_ext(basename(fn), ".md", FALSE), 
-    extra_arguments = "", cmd = 'pandoc %4$s -s "%1$s" --filter "%2$s" -o "%3$s"') {
+    extra_arguments = "", cmd = 'pandoc %4$s -s "%1$s" --filter "%2$s" -o "%3$s"', ...) {
   if (ofn == fn) stop("Output file (ofn) would overwrite input file (fn). ", 
       "Specify another output filename (ofn).")
   script <- system.file("scripts/filter.R", package = "tinymarkdown")

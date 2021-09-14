@@ -16,5 +16,6 @@ RoxygenNote: 7.1.1
 Imports: 
     rjson,
     tools
+VignetteBuilder: tinymarkdown
 SystemRequirements: Pandoc (http://pandoc.org) needs to installed
     and available in the search path.
