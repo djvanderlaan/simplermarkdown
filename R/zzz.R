@@ -1,7 +1,11 @@
 
 .onLoad <- function(libname, pkgname) {
-  tools::vignetteEngine("tinymarkdown", 
+  tools::vignetteEngine("mdweave_to_html", 
     weave = mdweave_to_html, 
+    tangle = mdtangle,
+    pattern = "[.]Rmd$", package = "tinymarkdown")
+  tools::vignetteEngine("mdweave_to_pdf", 
+    weave = mdweave_to_pdf, 
     tangle = mdtangle,
     pattern = "[.]Rmd$", package = "tinymarkdown")
 }

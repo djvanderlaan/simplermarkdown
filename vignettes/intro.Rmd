@@ -1,5 +1,5 @@
 <!--
-%\VignetteEngine{tinymarkdown::tinymarkdown}
+%\VignetteEngine{tinymarkdown::mdweave_to_html}
 %\VignetteIndexEntry{Introduction to tinymarkdown}
 -->
 ---
