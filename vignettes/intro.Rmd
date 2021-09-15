@@ -1,66 +1,62 @@
 <!--
 %\VignetteEngine{tinymarkdown::tinymarkdown}
-%\VignetteIndexEntry{Display Tables with the JavaScript Library DataTables}
+%\VignetteIndexEntry{Introduction to tinymarkdown}
 -->
 ---
-title: An analysis of iris
-vignette: >
-  %\VignetteIndexEntry{Test}
-  %\VignetteEngine{tinymarkdown::mdweave_to_pdf}
+title: tinymarkdown
+css: "dark.min.css"
 ---
 
 Introduction
 -------------------------
 
-From the help page of the iris data set:
+First write a markdown file using 
+[pandoc markdown](https://pandoc.org/MANUAL.html#pandocs-markdown).  The package uses pandoc to
+parse the markdown and runs any code blocks tagged as being R-code. The result a new markdown file
+that can be further processed using pandoc and compiled to, for example, PDF or HTML.
 
-> This famous (Fisher's or Anderson's) iris data set gives the
-> measurements in centimeters of the variables sepal length and
-> width and petal length and width, respectively, for 50 flowers
-> from each of 3 species of iris.  The species are _Iris setosa_,
-> _versicolor_, and _virginica_.
+To process your markdown file you can use the `mdweave` function:
 
+```
+mdweave("mydocument.md", "mydocument_woven.md")
+```
 
-Descriptives
---------------------------
+The resulting document `mydocument_woven.md` can then be processes further using
+pandoc. 
 
-The table below shows for each of the iris species the mean value of the colums in the data set. 
+Below is a ready to run example using an example document in the package:
 
-```{.R #table fun=tab caption="Mean values for each of the properties for each of the iris species."}
-aggregate(iris[1:4], iris["Species"], mean)
+```
+library(tinymarkdown)
+
+example1 <- system.file("examples/example1.md", package = "tinymarkdown")
+
+mdweave(example1, "example1_woven.md")
+
+system("pandoc example1_woven.md -o example1.pdf")
 ```
 
 
-```{.R #figure fun=fig 
-  caption="Relation between sepal length and width for the different iris species." 
-  name="iris" height=6 width=8 units="in" res=150}
-pal <- hcl.colors(3, "Dark2")
-par(mar = c(4, 4, 1, 1) + 0.5)
-plot(iris$Sepal.Width, iris$Sepal.Length, pch = 20, 
-  col = pal[iris$Species], xlab = "Sepal Width", 
-  ylab = "Sepal Length", bty = 'n', las = 1)
-legend("topright", legend = levels(iris$Species), 
-  fill = pal, bty = 'n', border = NA)
+## Writing markdown
+
+
+An example of a basic code block tagged as being R-code is shown below. 
+The id/label if the block is `codeblock1`.  
+
+`````
+```{#codeblock1 .R}
+a <- 1+1
+a
 ```
+`````
 
+By default the code in the code block is run and both the code and the output of
+the code are shown in the generated new code block. In the resulting output file 
+this wil result in
 
-
-Species prediction
----------------------------------
-
-```{.R}
-library(MASS)
-m <- lda(Species ~ Sepal.Width + Sepal.Length, data = iris)
-p <- predict(m)
-predicted_species <- p$class
-table(predicted_species, iris$Species)
+```{#codeblock1 .R}
+a <- 1+1
+a
 ```
-
-This model predicts in `round(mean(predicted_species==iris$Species)*100)`{.R}% of the
-cases the correct species. However, this is mainly for *setosa* for the other species the
-model predicts the correct species only for
-`sel<-iris$Species!="setosa";round(100*mean(predicted_species[sel] == iris$Species[sel]))`{.R}% of
-the records.
-
 
 

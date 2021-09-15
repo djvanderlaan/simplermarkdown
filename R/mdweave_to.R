@@ -25,7 +25,8 @@
 #' @export
 #' @rdname mdweave_to
 mdweave_to_pdf <- function(fn, ofn = file_subs_ext(basename(fn), ".pdf", FALSE), 
-    extra_arguments2 = "", cmd2 = 'pandoc %3$s -s "%1$s" -t latex -o "%2$s"', ...) {
+    extra_arguments2 = "--self-contained", 
+    cmd2 = 'pandoc %3$s -s "%1$s" -t latex -o "%2$s"', ...) {
   # Check if extension of ofn is .pdf; this is required by pandoc
   if (!grepl("\\.pdf$", ofn)) stop("ofn should have the extension .pdf.")
   # First convert fn to md using mdweave
@@ -43,7 +44,8 @@ mdweave_to_pdf <- function(fn, ofn = file_subs_ext(basename(fn), ".pdf", FALSE),
 #' @export
 #' @rdname mdweave_to
 mdweave_to_tex <- function(fn, ofn = file_subs_ext(basename(fn), ".tex", FALSE), 
-    extra_arguments2 = "", cmd2 = 'pandoc %3$s -s "%1$s" -t latex -o "%2$s"', ...) {
+    extra_arguments2 = "--self-contained", 
+    cmd2 = 'pandoc %3$s -s "%1$s" -t latex -o "%2$s"', ...) {
   if (grepl("\\.pdf$", ofn)) stop("ofn cannot have the extension .pdf.")
   # First convert fn to md using mdweave
   ofn_md <- file_subs_ext(ofn, ".md", FALSE)
@@ -61,7 +63,8 @@ mdweave_to_tex <- function(fn, ofn = file_subs_ext(basename(fn), ".tex", FALSE),
 #' @export
 #' @rdname mdweave_to
 mdweave_to_html <- function(fn, ofn = file_subs_ext(basename(fn), ".html", FALSE), 
-    extra_arguments2 = "", cmd2 = 'pandoc %3$s -s "%1$s" -t html -o "%2$s"', ...) {
+    extra_arguments2 = "--self-contained", 
+    cmd2 = 'pandoc %3$s -s "%1$s" -t html -o "%2$s"', ...) {
   # First convert fn to md using mdweave
   ofn_md <- file_subs_ext(ofn, ".md", FALSE)
   if (ofn_md == fn) ofn_md <- paste0(ofn, ".md")
