@@ -34,7 +34,7 @@
 #' @rdname output_fun
 #' @export
 #' 
-tab <- function(code, language = "R", id = "",  ...) {
+output_table <- function(code, language = "R", id = "",  ...) {
   tab <- source(exprs = str2expression(code), echo = FALSE)
   md_table(tab$value, as_character = TRUE, ...)
 }
@@ -43,7 +43,7 @@ tab <- function(code, language = "R", id = "",  ...) {
 #' @rdname output_fun
 #' @export
 #' 
-fig <- function(code, language = "R", id = "", ...) {
+output_figure <- function(code, language = "R", id = "", ...) {
   expr <- str2expression(code)
   md_figure(expr, as_character = TRUE, ...)
 }
@@ -52,7 +52,7 @@ fig <- function(code, language = "R", id = "", ...) {
 #' @rdname output_fun
 #' @export
 #' 
-eval <- function(code, language = "R", id = "", echo = TRUE, 
+output_eval <- function(code, language = "R", id = "", echo = TRUE, 
     results = TRUE, ...) {
   res <- utils::capture.output(
     source(exprs = str2expression(code), echo = echo, print.eval = results)
@@ -65,7 +65,7 @@ eval <- function(code, language = "R", id = "", echo = TRUE,
 #' @rdname output_fun
 #' @export
 #' 
-raw <- function(code, language = "R", id = "", ...) {
+output_raw <- function(code, language = "R", id = "", ...) {
   res <- utils::capture.output(
     source(exprs = str2expression(code), echo = FALSE)
   )
@@ -76,7 +76,7 @@ raw <- function(code, language = "R", id = "", ...) {
 #' @rdname output_fun
 #' @export 
 #' 
-str <- function(code, language = "R", id = "", ...) {
+output_str <- function(code, language = "R", id = "", ...) {
   res <- source(exprs = str2expression(code), echo = FALSE)
   res <- paste0(as.character(res$value), collapse="\n")
   str_block(res)

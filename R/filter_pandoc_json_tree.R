@@ -10,7 +10,7 @@ filter_pandoc_json_tree <- function(con) {
   } else {
     dta <- rjson::fromJSON(file = con, simplify = FALSE)
   }
-  default_fun <- "eval"
+  default_fun <- "output_eval"
   verbosity   <- 1
   # Go over all of the blocks in the tree; check if they contain R code and
   # evaluate the code
@@ -20,7 +20,7 @@ filter_pandoc_json_tree <- function(con) {
 }
 
 
-parse_blocks <- function(blocks, verbosity = 1, default_fun = "eval", 
+parse_blocks <- function(blocks, verbosity = 1, default_fun = "output_eval", 
     eval_block = evaluate_code_block, eval_inline = evaluate_inline_code) {
   # The following type can all be handled the same way
   basic_types <- c("Emph", "Para", "Plain", "BlockQuote")
@@ -71,12 +71,12 @@ evaluate_inline_code <- function(block, verbosity = 1) {
   if (!is.null(b) && b$language == "R") {
     id <- if (b$id == "") "<unlabeled inline block>" else b$id
     if (verbosity > 0) message("Evaluating code in inline block '", id, "'.")
-    block <- do.call(str, list(code = b$code, id = b$id, language = b$language))
+    block <- do.call(output_str, list(code = b$code, id = b$id, language = b$language))
   }
   block
 }
 
-evaluate_code_block <- function(block, default_fun = "eval", verbosity = 1) {
+evaluate_code_block <- function(block, default_fun = "output_eval", verbosity = 1) {
   b <- get_block(block)
   if (!is.null(b) && b$language == "R") {
     id <- if (b$id == "") "<unlabeled code block>" else b$id

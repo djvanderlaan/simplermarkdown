@@ -21,7 +21,7 @@ dta <- iris
 
 And some text
 
-``` {.R fun=tab caption="Sample iris"}
+``` {.R fun=output_table caption="Sample iris"}
 dta$foo <- dta$Sepal.Width/dta$Sepal.Length
 dta[1:20, ]
 ```
@@ -36,14 +36,14 @@ Geen R-code
 ```
 
 
-```{.R fun=fig name="test" caption="My figure" device="pdf" width=8 
+```{.R fun=output_figure name="test" caption="My figure" device="pdf" width=8 
   height=6}
 warning("FOO")
 plot(dta$Sepal.Width, dta$Petal.Width)
 ```
 
 
-```{.R fun=raw}
+```{.R fun=output_raw}
 md_figure({
 plot(dta$Sepal.Length, dta$Petal.Length)
 }, name = "foo")

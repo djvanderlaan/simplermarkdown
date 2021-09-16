@@ -19,12 +19,12 @@ Descriptives
 
 The table below shows for each of the iris species the mean value of the colums in the data set. 
 
-```{.R #table fun=tab caption="Mean values for each of the properties for each of the iris species."}
+```{.R #table fun=output_table caption="Mean values for each of the properties for each of the iris species."}
 aggregate(iris[1:4], iris["Species"], mean)
 ```
 
 
-```{.R #figure fun=fig 
+```{.R #figure fun=output_figure 
   caption="Relation between sepal length and width for the different iris species." 
   name="iris" height=6 width=8 units="in" res=150}
 pal <- hcl.colors(3, "Dark2")

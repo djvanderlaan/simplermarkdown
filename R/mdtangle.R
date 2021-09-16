@@ -30,7 +30,7 @@ mdtangle <- function(fn, ofn = file_subs_ext(basename(fn), ".R"),
   cmd <- sprintf(cmd, fn, tmp_ofn, extra_arguments)
   system(cmd)
   dta <- rjson::fromJSON(file = tmp_ofn, simplify = FALSE)
-  default_fun <- "eval"
+  default_fun <- "output_eval"
   verbosity   <- 1
   code <- character(0)
   gather_code <- function(block, default_fun = "eval", verbosity = 1) {

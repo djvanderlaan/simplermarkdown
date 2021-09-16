@@ -40,6 +40,18 @@ mdweave(example1, "example1_woven.md")
 system("pandoc example1_woven.md -o example1.pdf")
 ```
 
+The package also includes the functions `mdweave_to_pdf`, `mdweave_to_html` and 
+`mdweave_to_tex`, that combines that last two function calls. Therefore, the example
+above could also have been written as:
+
+```
+library(tinymarkdown)
+example1 <- system.file("examples/example1.md", package = "tinymarkdown")
+mdweave_to_pdf(example1, "example1.pdf")
+```
+
+Although it is possible to pass additional arguments to `pandoc` through the `mdweave_to_...`
+functions, it is probably just as easy to call `pandoc` directly. 
 
 
 ## Writing markdown
@@ -54,6 +66,10 @@ would also be valid.  The id/label if the block is `codeblock1`.
 a <- 1+1
 ~~~
 ```
+
+Note that the `.R` needs to be the first argument starting with a `.` for the 
+codeblock. For example ` ```{#codeblock .foo .R foo=bar} ` won't be evaluated, while
+` ```{#codeblock foo=bar .R .foo} ` will.
 
 By default the code in the code block is run and both the code and the output of
 the code are shown in the generated new code block. Arguments can be used to
@@ -77,16 +93,15 @@ document. In case of code blocks the code is passed on to a function. Depending 
 this can result in a code blocks with the evaluated code (the default), tables, figures and you can
 also specify your own functions.
 
-
 ### Tables
 
 To generate a table, we tell it to pass the code in the code block to the
-function `table` from the `tinymarkdown` package. This function will take the
+function `output_table` from the `tinymarkdown` package. This function will take the
 final result and generate a markdown table from that. Any arguments are passed
 on to the `table` function.
 
 ```
-~~~ {.R fun=table caption="Sample iris"}
+~~~ {.R fun=output_table caption="Sample iris"}
 dta$foo <- dta$Sepal.Width/dta$Sepal.Length
 dta[1:20, ]
 ~~~
@@ -95,12 +110,12 @@ dta[1:20, ]
 
 ### Figures
 
-To generate a figure use the `figure` function. The function will run the code,
+To generate a figure use the `output_figure` function. The function will run the code,
 capture any output on the specified device and generate a markdown image
 include.
 
 ```
-~~~{.R fun=figure name="test" caption="My figure" device="pdf" width=8 
+~~~{.R fun=output_figure name="test" caption="My figure" device="pdf" width=8 
   height=6}
 plot(dta$Sepal.Width, dta$Petal.Width)
 ~~~
@@ -114,7 +129,7 @@ markdown document. For example, to generate a figure you can also use:
 
 
 ```
-~~~{.R fun=raw}
+~~~{.R fun=output_raw}
 md_figure({
 plot(dta$Sepal.Length, dta$Petal.Length)
 }, name = "foo")
