@@ -101,7 +101,7 @@ final result and generate a markdown table from that. Any arguments are passed
 on to the `table` function.
 
 ```
-~~~ {.R fun=output_table caption="Sample iris"}
+~~~{.R fun=output_table caption="Sample iris"}
 dta$foo <- dta$Sepal.Width/dta$Sepal.Length
 dta[1:20, ]
 ~~~
@@ -123,7 +123,7 @@ plot(dta$Sepal.Width, dta$Petal.Width)
 
 ### Other output
 
-By using the `raw` filter, any other output can be generated. This function will
+By using the `output_raw` filter, any other output can be generated. This function will
 run the code, capture any output and put that directly into the resulting
 markdown document. For example, to generate a figure you can also use:
 
