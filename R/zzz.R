@@ -3,9 +3,9 @@
   tools::vignetteEngine("mdweave_to_html", 
     weave = mdweave_to_html, 
     tangle = mdtangle,
-    pattern = "[.]Rmd$", package = "tinymarkdown")
+    pattern = "[.][R]?md$", package = "tinymarkdown")
   tools::vignetteEngine("mdweave_to_pdf", 
     weave = mdweave_to_pdf, 
     tangle = mdtangle,
-    pattern = "[.]Rmd$", package = "tinymarkdown")
+    pattern = "[.][R]?md$", package = "tinymarkdown")
 }
