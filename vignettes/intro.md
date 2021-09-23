@@ -310,7 +310,7 @@ the `report/output` directory. `pandoc` will not be able to find
 any of the figures.
 
 
-There are several possible solutions:
+There are several possible solutions for the example above:
 
 - When working on linux of mac, you could create a symbolic link from
   `report/output/figures` to `report/figures`. 
@@ -319,4 +319,6 @@ There are several possible solutions:
   `report` directory and also put the output in the same directory.
 - And probably others. 
 
+Note that the same issues occur when referencing stylsheets etc. in the 
+meta block of the markdown file.
 
