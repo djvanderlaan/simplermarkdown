@@ -9,6 +9,8 @@
 #' @param name the name of the figure. 
 #' @param caption text of the caption. When omitted no caption is added to the
 #'   figure.
+#' @param id id of the figure. When omitted or equal to NULL or an empry 
+#'   character, no id is added to the figure.
 #' @param dir name of the directory in which to store the file. 
 #' @param device the graphics device to use for creating the image.
 #' @param as_character return the figure as a character vector. If \code{FALSE}
@@ -25,7 +27,7 @@
 #' 
 #' @export
 #' 
-md_figure <- function(expr, name, caption = "", 
+md_figure <- function(expr, name, caption = "", id = "",
     dir = file.path(Sys.getenv("MDOUTDIR", "."), "figures"), 
     device = c("png", "pdf"), as_character = FALSE, ...) {
   dir.create(dir, recursive = TRUE, showWarnings = FALSE)
@@ -42,9 +44,12 @@ md_figure <- function(expr, name, caption = "",
   res <- utils::capture.output(
     source(exprs = expr, echo = FALSE)
   )
+  id_str <- if (!is.null(id) && id != "") 
+    id_str <- paste0("{#", id, "}") else id_str = ""
   if (as_character) {
-    paste0("\n![", caption, "](", fn, ")\n")
+    paste0("\n![", caption, "](", fn, ")", id_str, "\n")
   } else {
-    cat("\n![", caption, "](", fn, ")\n", sep = "")
+    cat("\n![", caption, "](", fn, ")", id_str, "\n", sep = "")
   }
 }
+

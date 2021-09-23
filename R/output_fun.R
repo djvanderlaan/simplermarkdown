@@ -45,7 +45,7 @@ output_table <- function(code, language = "R", id = "",  ...) {
 #' 
 output_figure <- function(code, language = "R", id = "", ...) {
   expr <- str2expression(code)
-  md_figure(expr, as_character = TRUE, ...)
+  md_figure(expr, as_character = TRUE, id = id, ...)
 }
 
 

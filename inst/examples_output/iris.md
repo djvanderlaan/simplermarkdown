@@ -27,7 +27,7 @@ colums in the data set.
 |versicolor|5.936       |2.770      |4.260       |1.326      |
 |virginica |6.588       |2.974      |5.552       |2.026      |
 
-![Relation between sepal length and width for the different iris species.](./figures/iris.png)
+![Relation between sepal length and width for the different iris species.](./figures/iris.png){#figure}
 
 Species prediction
 ------------------
