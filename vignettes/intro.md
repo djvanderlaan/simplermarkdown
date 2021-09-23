@@ -288,7 +288,7 @@ report/
      figure1.png
    ouput/
      report.md
-     figure/
+     figures/
        figure2.png
 `````
 And the resulting markdown file will contain the following markdown:
