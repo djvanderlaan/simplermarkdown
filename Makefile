@@ -7,7 +7,7 @@ build: document
 	cd work && R CMD build ../
 
 check: build
-	cd work && R CMD check `ls work/tinymarkdown_* | sort | head -n 1`
+	cd work && R CMD check --as-cran `ls tinymarkdown_* | sort | head -n 1`
 
 document:
 	R -e "roxygen2::roxygenise()"
