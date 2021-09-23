@@ -31,7 +31,7 @@ package:
     system("pandoc example1_woven.md -o example1.pdf")
 
 The package also includes the functions `mdweave_to_pdf`,
-`mdweave_to_html` and `mdweave_to_tex`, that combine that last two
+`mdweave_to_html` and `mdweave_to_tex`, that combine these last two
 function calls. Therefore, the example above could also have been
 written as:
 
@@ -207,3 +207,72 @@ directory and refer to the stylesheet in the header:
     title: [The title of the vignette]
     css: custom_styling.css
     ---
+
+A note about paths and working directories
+------------------------------------------
+
+tinymarkdown tries to assume as little as possible about possible
+workflows. However, this also means that you, the user, are responsible
+for some things where other packages might make assumtions. One of the
+places where this is the case is for paths and working directories. And
+this is especially relevant when including figures and when generating
+figures using R.
+
+As an example take the following project directory:
+
+    report/
+       report.md
+       figures/
+         figure1.png
+    report/output/
+
+The report contains the following code:
+
+    ![Figure caption](figures/figure1.png)
+
+    ```{.R fun=output_figure name="figure2" caption="Caption", device="png"}
+    plot(1:10)
+    ```
+
+Assume the current working directory is the root of the project
+directory. and that we run `mdweave` as:
+
+    mdweave("report/report.md", "report/output/report.md")
+
+Figures are by default created in the directory `figures` in the target
+directory. Therefore the directory structure after running `mdweave` is:
+
+    report/
+       report.md
+       figures/
+         figure1.png
+       ouput/
+         report.md
+         figure/
+           figure2.png
+
+And the resulting markdown file will contain the following markdown:
+
+    ![Figure caption](figures/figure1.png)
+
+    ![Caption](report/output/figures/figure2.png)
+
+As you can see, we now have two locations with figures. When running
+`pandoc` from the root directory of the project to create the final
+output:
+
+    pandoc report/output/report.md -s -o report/output/report.html
+
+`pandoc` will not be able to find the first figure. It will find the
+second figure. When you would run the final `pandoc` command from the
+`report/output` directory. `pandoc` will not be able to find any of the
+figures.
+
+There are several possible solutions:
+
+-   When working on linux of mac, you could create a symbolic link from
+    `report/output/figures` to `report/figures`.
+-   Copy `report/figures` to `report/output/figures`.
+-   Path of least resistance: run `mdweave` and `pandoc` from the
+    `report` directory and also put the output in the same directory.
+-   And probably others.
