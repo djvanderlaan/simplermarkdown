@@ -1,13 +1,19 @@
 Package: tinymarkdown
-Title: What the Package Does (One Line, Title Case)
+Title: Simple engine for generating reports using R
 Version: 0.0.1
 Authors@R: 
     person(given = "Jan",
            family = "van der Laan",
            role = c("aut", "cre"),
            email = "jan@knowledge-arcana.nl",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
+           comment = c(ORCID = "0000-0002-0693-1514"))
+Description: Runs R-code present in a pandoc markdown file and 
+  includes the resulting output in the resulting markdown file. This
+  file can then be converted into any of the output formats 
+  supported by pandoc. The package can also be used as an engine
+  for writing package vignettes. 
+BugReports: https://github.com/djvanderlaan/tinymarkdown/issues
+URL: https://github.com/djvanderlaan/tinymarkdown
 License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
