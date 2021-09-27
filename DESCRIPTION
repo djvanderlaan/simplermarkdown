@@ -1,5 +1,5 @@
 Package: tinymarkdown
-Title: Simple engine for generating reports using R
+Title: Simple Engine for Generating Reports using R
 Version: 0.0.1
 Authors@R: 
     person(given = "Jan",
