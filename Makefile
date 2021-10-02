@@ -18,3 +18,6 @@ install: build
 gen_test: install
 	Rscript work/generate_test_reference.R
 
+readme: 
+	R -e 'tinymarkdown::mdweave("vignettes/intro.md", "README.md", cmd2 = "pandoc %1$$s -o %2$$s")'
+ 

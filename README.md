@@ -277,6 +277,5 @@ There are several possible solutions for the example above:
     `report` directory and also put the output in the same directory.
 -   And probably others.
 
-Note that the same issues occur when referencing stylsheets etc. in the 
+Note that the same issues occur when referencing stylsheets etc. in the
 meta block of the markdown file.
-
