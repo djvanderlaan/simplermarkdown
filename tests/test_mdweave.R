@@ -14,7 +14,6 @@ setwd(dir)
 old_env <- Sys.getenv("R_TESTS")
 Sys.setenv("R_TESTS" = "")
 
-
 # =============================================================================
 message("Checking iris.md")
 md <- "iris.md"

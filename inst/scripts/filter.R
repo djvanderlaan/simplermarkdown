@@ -1,5 +1,4 @@
 
-
 library(tinymarkdown)
 
 # Filter tree; read from srdin
