@@ -1,5 +1,5 @@
 
-library(tinymarkdown)
+library(simplermarkdown)
 
 
 stopifnot(file_subs_ext("foo.R", "pdf") == "foo.pdf")

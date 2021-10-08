@@ -1,7 +1,7 @@
 # mdtangle a couple of documents and check if the output is the
 # same as the corresponding reference documents
 
-library(tinymarkdown)
+library(simplermarkdown)
 
 # Create tempdir
 dir <- tempdir()
@@ -21,13 +21,13 @@ md <- "iris.md"
 r <- "iris.R"
 
 message("Tangle file")
-fn <- system.file(file.path("examples", md), package = "tinymarkdown")
+fn <- system.file(file.path("examples", md), package = "simplermarkdown")
 mdtangle(fn)
 
 message("Compare to reference")
 lines <- readLines(r)
 fn_ref <- system.file(file.path("examples_output", r), 
-  package = "tinymarkdown")
+  package = "simplermarkdown")
 lines_ref <- readLines(fn_ref)
 stopifnot(isTRUE(all.equal(lines, lines_ref)))
 
@@ -40,13 +40,13 @@ md <- "example1.md"
 r <- "example1.R"
 
 message("Tangle file")
-fn <- system.file(file.path("examples", md), package = "tinymarkdown")
+fn <- system.file(file.path("examples", md), package = "simplermarkdown")
 mdtangle(fn)
 
 message("Compare to reference")
 lines <- readLines(r)
 fn_ref <- system.file(file.path("examples_output", r), 
-  package = "tinymarkdown")
+  package = "simplermarkdown")
 lines_ref <- readLines(fn_ref)
 stopifnot(isTRUE(all.equal(lines, lines_ref)))
 

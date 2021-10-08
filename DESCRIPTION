@@ -1,4 +1,4 @@
-Package: tinymarkdown
+Package: simplermarkdown
 Title: Simple Engine for Generating Reports using R
 Version: 0.0.1
 Authors@R: 
@@ -12,8 +12,8 @@ Description: Runs R-code present in a pandoc markdown file and
   file can then be converted into any of the output formats 
   supported by pandoc. The package can also be used as an engine
   for writing package vignettes. 
-BugReports: https://github.com/djvanderlaan/tinymarkdown/issues
-URL: https://github.com/djvanderlaan/tinymarkdown
+BugReports: https://github.com/djvanderlaan/simplermarkdown/issues
+URL: https://github.com/djvanderlaan/simplermarkdown
 License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
@@ -23,6 +23,6 @@ Imports:
     tools
 Suggests:
     MASS
-VignetteBuilder: tinymarkdown
+VignetteBuilder: simplermarkdown
 SystemRequirements: Pandoc (http://pandoc.org) needs to installed
     and available in the search path.

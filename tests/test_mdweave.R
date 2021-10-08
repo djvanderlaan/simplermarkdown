@@ -10,7 +10,7 @@ correct_pandoc_version <- c("pandoc 2.5",
   "Compiled with pandoc-types 1.17.5.4, texmath 0.11.2.2, skylighting 0.7.7")
 is_correct_pandoc_version <- all(pandoc_version[1:2] == correct_pandoc_version)
 
-library(tinymarkdown)
+library(simplermarkdown)
 
 # Create tempdir
 dir <- tempdir()
@@ -28,7 +28,7 @@ message("Checking iris.md")
 md <- "iris.md"
 
 message("Weave file")
-fn <- system.file(file.path("examples", md), package = "tinymarkdown")
+fn <- system.file(file.path("examples", md), package = "simplermarkdown")
 mdweave(fn)
 
 message("Check if result generated")
@@ -38,7 +38,7 @@ if (is_correct_pandoc_version) {
   message("Compare to reference")
   lines <- readLines(md)
   fn_ref <- system.file(file.path("examples_output", md), 
-    package = "tinymarkdown")
+    package = "simplermarkdown")
   lines_ref <- readLines(fn_ref)
   print(all.equal(lines, lines_ref))
   system(paste0("diff ", md, " ", fn_ref))
@@ -60,7 +60,7 @@ message("Checking example1.md")
 md <- "example1.md"
 
 message("Weave file")
-fn <- system.file(file.path("examples", md), package = "tinymarkdown")
+fn <- system.file(file.path("examples", md), package = "simplermarkdown")
 mdweave(fn)
 
 message("Check if result generated")
@@ -70,7 +70,7 @@ if (is_correct_pandoc_version) {
   message("Compare to reference")
   lines <- readLines(md)
   fn_ref <- system.file(file.path("examples_output", md), 
-    package = "tinymarkdown")
+    package = "simplermarkdown")
   lines_ref <- readLines(fn_ref)
   print(all.equal(lines, lines_ref))
   system(paste0("diff ", md, " ", fn_ref))

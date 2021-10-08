@@ -1,9 +1,9 @@
 <!--
-%\VignetteEngine{tinymarkdown::mdweave_to_html}
-%\VignetteIndexEntry{Introduction to tinymarkdown}
+%\VignetteEngine{simplermarkdown::mdweave_to_html}
+%\VignetteIndexEntry{Introduction to simplermarkdown}
 -->
 ---
-title: tinymarkdown
+title: simplermarkdown
 css: "style.css"
 ---
 
@@ -28,9 +28,9 @@ pandoc.
 Below is a ready to run example using an example document in the package:
 
 ```
-library(tinymarkdown)
+library(simplermarkdown)
 
-example1 <- system.file("examples/example1.md", package = "tinymarkdown")
+example1 <- system.file("examples/example1.md", package = "simplermarkdown")
 
 mdweave(example1, "example1_woven.md")
 
@@ -42,8 +42,8 @@ The package also includes the functions `mdweave_to_pdf`, `mdweave_to_html` and
 example above could also have been written as:
 
 ```
-library(tinymarkdown)
-example1 <- system.file("examples/example1.md", package = "tinymarkdown")
+library(simplermarkdown)
+example1 <- system.file("examples/example1.md", package = "simplermarkdown")
 mdweave_to_pdf(example1, "example1.pdf")
 ```
 
@@ -104,7 +104,7 @@ own functions.
 ### Tables
 
 To generate a table, we tell it to pass the code in the code block to the
-function `output_table` from the `tinymarkdown` package. This function will
+function `output_table` from the `simplermarkdown` package. This function will
 take the final result and generate a markdown table from that. Any additional
 arguments of the code block are passed on to the `output_table` function.
 
@@ -173,22 +173,22 @@ Using as a vignette engine
 -----------------------------------------------------------------------
 
 
-To use tinymarkdown as an engine for your R-package vignettes you will need to do the following:
+To use simplermarkdown as an engine for your R-package vignettes you will need to do the following:
 
-#### Specify tinymarkdown as your vignette builder in your `DESCRIPTION` file:
+#### Specify simplermarkdown as your vignette builder in your `DESCRIPTION` file:
 
 ```
-VignetteBuilder: tinymarkdown
+VignetteBuilder: simplermarkdown
 ```
 
-#### Add tinymarkdown as a dependency of your package. 
+#### Add simplermarkdown as a dependency of your package. 
 
-If your package doesn't use tinymarkdown otherwise
+If your package doesn't use simplermarkdown otherwise
 you can add it to your `Suggests` field in the `DESCRIPTION` file:
 
 ```
 Suggests: 
-    tinymarkdown
+    simplermarkdown
 ```
 
 #### Use the extension `.md` for your vignette.
@@ -201,7 +201,7 @@ package source.
 You have to add the following line to your vignette:
 
 ```
-%\VignetteEngine{tinymarkdown::mdweave_to_html}
+%\VignetteEngine{simplermarkdown::mdweave_to_html}
 ```
 
 Instead of `mdweave_to_html` you can also use `mdweave_to_pdf` to generate a vignette in PDF format. 
@@ -210,7 +210,7 @@ markdown file with:
 
 ```
 <!--
-%\VignetteEngine{tinymarkdown::mdweave_to_html}
+%\VignetteEngine{simplermarkdown::mdweave_to_html}
 %\VignetteIndexEntry{The title of the vignette}
 -->
 
@@ -233,7 +233,7 @@ refer to the stylesheet in the header:
 
 ```
 <!--
-%\VignetteEngine{tinymarkdown::mdweave_to_html}
+%\VignetteEngine{simplermarkdown::mdweave_to_html}
 %\VignetteIndexEntry{The title of the vignette}
 -->
 
@@ -247,7 +247,7 @@ css: custom_styling.css
 
 ## A note about paths and working directories
 
-tinymarkdown tries to assume as little as possible about possible workflows.
+simplermarkdown tries to assume as little as possible about possible workflows.
 However, this also means that you, the user, are responsible for some things
 where other packages might make assumtions.  One of the places where this is
 the case is for paths and working directories. And this is especially 

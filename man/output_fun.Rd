@@ -50,7 +50,7 @@ It is also possible to write custom output filter. An output filter should have
 should either return a character vector containing the markdown that should be
 included in the resulting markdown file or an object that can be directly
 included in the pandoc parse tree. If the function does not return a character
-vector it is assumed the latter is returned. \code{tinymarkdown} defines a
+vector it is assumed the latter is returned. \code{simplermarkdown} defines a
 small number of valid object constructors: \code{\link{raw_block}} and
 \code{\link{markdown_block}}.
 
