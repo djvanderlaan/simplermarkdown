@@ -7,8 +7,8 @@ title: simplermarkdown
 css: "style.css"
 ---
 
-Introduction
--------------------------
+Introduction to simplermarkdown
+--------------------------------------
 
 First write a markdown file using [pandoc
 markdown](https://pandoc.org/MANUAL.html#pandocs-markdown).  The package uses

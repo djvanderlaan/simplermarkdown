@@ -3,8 +3,7 @@
 %\VignetteIndexEntry{Introduction to simplermarkdown}
 -->
 
-Introduction
-------------
+## Introduction to simplermarkdown
 
 First write a markdown file using [pandoc
 markdown](https://pandoc.org/MANUAL.html#pandocs-markdown). The package
@@ -23,11 +22,11 @@ Below is a ready to run example using an example document in the
 package:
 
     library(simplermarkdown)
-
+    
     example1 <- system.file("examples/example1.md", package = "simplermarkdown")
-
+    
     mdweave(example1, "example1_woven.md")
-
+    
     system("pandoc example1_woven.md -o example1.pdf")
 
 The package also includes the functions `mdweave_to_pdf`,
@@ -43,8 +42,7 @@ Although it is possible to pass additional arguments to `pandoc` through
 the `mdweave_to_...` functions, it is probably just as easy to call
 `pandoc` directly.
 
-Writing markdown
-----------------
+## Writing markdown
 
 An example of a basic code block tagged as being R-code is shown below.
 The id/label if the block is `codeblock1`.
@@ -58,16 +56,15 @@ By default the code in the code block is run and both the code and the
 output of the code are shown in the generated new code block. In the
 resulting output file this wil result in
 
-``` {#codeblock1 .R}
+``` R
 > a <- 1 + 1
 > a
 [1] 2
 ```
 
 Note that the `.R` needs to be the first argument starting with a `.`
-for the codeblock. For example ```` ```{#codeblock .foo .R foo=bar} ````
-won't be evaluated, while ```` ```{#codeblock foo=bar .R .foo} ````
-will.
+for the codeblock. For example ` ```{#codeblock .foo .R foo=bar} ` won’t
+be evaluated, while ` ```{#codeblock foo=bar .R .foo} ` will.
 
 By default the code in the code block is run and both the code and the
 output of the code are shown in the generated new code block. Arguments
@@ -118,7 +115,7 @@ The figures are saved in the folder `figures` in the current folder.
 
 By using the `output_raw` filter, any other output can be generated.
 This function will run the code, capture any output and put that
-directly into the resulting markdown document. For example, let's print
+directly into the resulting markdown document. For example, let’s print
 a list with all of the iris species:
 
     ```{.R fun=output_raw}
@@ -126,7 +123,7 @@ a list with all of the iris species:
     ```
 
 Or you can write your own filter function. This function will get the
-code in the code block as character vector as it's first argument, the
+code in the code block as character vector as it’s first argument, the
 language of the code block, and the id of the code block and any other
 arguments given.
 
@@ -144,8 +141,7 @@ as:
     Hello World!
     ```
 
-Using as a vignette engine
---------------------------
+## Using as a vignette engine
 
 To use simplermarkdown as an engine for your R-package vignettes you
 will need to do the following:
@@ -156,7 +152,7 @@ will need to do the following:
 
 #### Add simplermarkdown as a dependency of your package.
 
-If your package doesn't use simplermarkdown otherwise you can add it to
+If your package doesn’t use simplermarkdown otherwise you can add it to
 your `Suggests` field in the `DESCRIPTION` file:
 
     Suggests: 
@@ -181,11 +177,11 @@ with:
     %\VignetteEngine{simplermarkdown::mdweave_to_html}
     %\VignetteIndexEntry{The title of the vignette}
     -->
-
+    
     ---
     title: [The title of the vignette]
     ---
-
+    
     [And the contents of your vignette]
 
 ### Custom styling
@@ -202,14 +198,13 @@ directory and refer to the stylesheet in the header:
     %\VignetteEngine{simplermarkdown::mdweave_to_html}
     %\VignetteIndexEntry{The title of the vignette}
     -->
-
+    
     ---
     title: [The title of the vignette]
     css: custom_styling.css
     ---
 
-A note about paths and working directories
-------------------------------------------
+## A note about paths and working directories
 
 simplermarkdown tries to assume as little as possible about possible
 workflows. However, this also means that you, the user, are responsible
@@ -229,7 +224,7 @@ As an example take the following project directory:
 The report contains the following code:
 
     ![Figure caption](figures/figure1.png)
-
+    
     ```{.R fun=output_figure name="figure2" caption="Caption", device="png"}
     plot(1:10)
     ```
@@ -254,7 +249,7 @@ directory. Therefore the directory structure after running `mdweave` is:
 And the resulting markdown file will contain the following markdown:
 
     ![Figure caption](figures/figure1.png)
-
+    
     ![Caption](report/output/figures/figure2.png)
 
 As you can see, we now have two locations with figures. When running
@@ -270,12 +265,12 @@ figures.
 
 There are several possible solutions for the example above:
 
--   When working on linux of mac, you could create a symbolic link from
+  - When working on linux of mac, you could create a symbolic link from
     `report/output/figures` to `report/figures`.
--   Copy `report/figures` to `report/output/figures`.
--   Path of least resistance: run `mdweave` and `pandoc` from the
+  - Copy `report/figures` to `report/output/figures`.
+  - Path of least resistance: run `mdweave` and `pandoc` from the
     `report` directory and also put the output in the same directory.
--   And probably others.
+  - And probably others.
 
 Note that the same issues occur when referencing stylsheets etc. in the
 meta block of the markdown file.

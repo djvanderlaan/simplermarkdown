@@ -6,6 +6,9 @@
 build: document
 	cd work && R CMD build ../
 
+build_firsttime: document
+	cd work && R CMD build --no-build-vignettes ../
+
 check: build
 	cd work && R CMD check --as-cran `ls simplermarkdown_* | sort | head -n 1`
 
@@ -19,7 +22,7 @@ gen_test: install
 	Rscript work/generate_test_reference.R
 
 readme: 
-	R -e 'simplermarkdown::mdweave("vignettes/intro.md", "README.md", cmd2 = "pandoc %1$$s -o %2$$s")'
+	R -e 'simplermarkdown::mdweave("vignettes/intro.md", "README.md", cmd2 = "pandoc %1$$s -t gfm -o %2$$s")'
 
 test_reference:
 	cd inst/examples_output && R -e 'library(simplermarkdown);mdweave("../examples/iris.md", "iris.md")'
