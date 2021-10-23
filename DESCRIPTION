@@ -5,7 +5,7 @@ Authors@R:
     person(given = "Jan",
            family = "van der Laan",
            role = c("aut", "cre"),
-           email = "jan@knowledge-arcana.nl",
+           email = "r@eoos.dds.nl",
            comment = c(ORCID = "0000-0002-0693-1514"))
 Description: Runs R-code present in a pandoc markdown file and 
   includes the resulting output in the resulting markdown file. This
