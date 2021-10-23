@@ -1,6 +1,6 @@
 Package: simplermarkdown
 Title: Simple Engine for Generating Reports using R
-Version: 0.0.1
+Version: 0.0.2
 Authors@R: 
     person(given = "Jan",
            family = "van der Laan",
