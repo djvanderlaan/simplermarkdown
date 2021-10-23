@@ -4,6 +4,9 @@
 #' @param ofn name of the resulting file.
 #' @param extra_arguments2 extra arguments passed on to pandoc. Should be a length 1 
 #'  character vector.
+#' @param run_in_temp When TRUE the intermediary markdown file and generated figures (when
+#'  not using custom paths) are created in a temporary directory. Otherwise these will be
+#'  generated in the same directory as the output file.
 #' @param cmd2 command used to run pandoc. See details. 
 #' @param ... additional arguments are passed on to \code{\link{mdweave}}.
 #'
@@ -25,13 +28,19 @@
 #' @export
 #' @rdname mdweave_to
 mdweave_to_pdf <- function(fn, ofn = file_subs_ext(basename(fn), ".pdf", FALSE), 
-    extra_arguments2 = "--self-contained", 
+    extra_arguments2 = "--self-contained", run_in_temp = TRUE,
     cmd2 = 'pandoc %3$s -s "%1$s" -t latex -o "%2$s"', ...) {
   # Check if extension of ofn is .pdf; this is required by pandoc
   if (!grepl("\\.pdf$", ofn)) stop("ofn should have the extension .pdf.")
   # First convert fn to md using mdweave
-  ofn_md <- file_subs_ext(ofn, ".md", FALSE)
-  if (ofn_md == fn) ofn_md <- paste0(ofn, ".md")
+  if (run_in_temp) {
+    dir <- tempfile()
+    dir.create(dir, recursive = TRUE, showWarnings = FALSE)
+    ofn_md <- file.path(dir, file_subs_ext(basename(fn), ".md", FALSE))
+  } else {
+    ofn_md <- file_subs_ext(ofn, ".md", FALSE)
+    if (ofn_md == fn) ofn_md <- paste0(ofn, ".md")
+  }
   mdweave(fn, ofn_md, ...)
   # Convert md to pdf
   if (ofn == fn) stop("Output file (ofn) would overwrite input file (fn). ", 
@@ -44,12 +53,18 @@ mdweave_to_pdf <- function(fn, ofn = file_subs_ext(basename(fn), ".pdf", FALSE),
 #' @export
 #' @rdname mdweave_to
 mdweave_to_tex <- function(fn, ofn = file_subs_ext(basename(fn), ".tex", FALSE), 
-    extra_arguments2 = "--self-contained", 
+    extra_arguments2 = "--self-contained", run_in_temp = TRUE,
     cmd2 = 'pandoc %3$s -s "%1$s" -t latex -o "%2$s"', ...) {
   if (grepl("\\.pdf$", ofn)) stop("ofn cannot have the extension .pdf.")
   # First convert fn to md using mdweave
-  ofn_md <- file_subs_ext(ofn, ".md", FALSE)
-  if (ofn_md == fn) ofn_md <- paste0(ofn, ".md")
+  if (run_in_temp) {
+    dir <- tempfile()
+    dir.create(dir, recursive = TRUE, showWarnings = FALSE)
+    ofn_md <- file.path(dir, file_subs_ext(basename(fn), ".md", FALSE))
+  } else {
+    ofn_md <- file_subs_ext(ofn, ".md", FALSE)
+    if (ofn_md == fn) ofn_md <- paste0(ofn, ".md")
+  }
   mdweave(fn, ofn_md, ...)
   # Convert md to pdf
   if (ofn == fn) stop("Output file (ofn) would overwrite input file (fn). ", 
@@ -63,11 +78,17 @@ mdweave_to_tex <- function(fn, ofn = file_subs_ext(basename(fn), ".tex", FALSE),
 #' @export
 #' @rdname mdweave_to
 mdweave_to_html <- function(fn, ofn = file_subs_ext(basename(fn), ".html", FALSE), 
-    extra_arguments2 = "--self-contained", 
+    extra_arguments2 = "--self-contained", run_in_temp = TRUE,
     cmd2 = 'pandoc %3$s -s "%1$s" -t html -o "%2$s"', ...) {
   # First convert fn to md using mdweave
-  ofn_md <- file_subs_ext(ofn, ".md", FALSE)
-  if (ofn_md == fn) ofn_md <- paste0(ofn, ".md")
+  if (run_in_temp) {
+    dir <- tempfile()
+    dir.create(dir, recursive = TRUE, showWarnings = FALSE)
+    ofn_md <- file.path(dir, file_subs_ext(basename(fn), ".md", FALSE))
+  } else {
+    ofn_md <- file_subs_ext(ofn, ".md", FALSE)
+    if (ofn_md == fn) ofn_md <- paste0(ofn, ".md")
+  }
   mdweave(fn, ofn_md, ...)
   # Convert md to pdf
   if (ofn == fn) stop("Output file (ofn) would overwrite input file (fn). ", 

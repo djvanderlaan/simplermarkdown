@@ -10,6 +10,7 @@ mdweave_to_pdf(
   fn,
   ofn = file_subs_ext(basename(fn), ".pdf", FALSE),
   extra_arguments2 = "--self-contained",
+  run_in_temp = TRUE,
   cmd2 = "pandoc \%3$s -s \\"\%1$s\\" -t latex -o \\"\%2$s\\"",
   ...
 )
@@ -18,6 +19,7 @@ mdweave_to_tex(
   fn,
   ofn = file_subs_ext(basename(fn), ".tex", FALSE),
   extra_arguments2 = "--self-contained",
+  run_in_temp = TRUE,
   cmd2 = "pandoc \%3$s -s \\"\%1$s\\" -t latex -o \\"\%2$s\\"",
   ...
 )
@@ -26,6 +28,7 @@ mdweave_to_html(
   fn,
   ofn = file_subs_ext(basename(fn), ".html", FALSE),
   extra_arguments2 = "--self-contained",
+  run_in_temp = TRUE,
   cmd2 = "pandoc \%3$s -s \\"\%1$s\\" -t html -o \\"\%2$s\\"",
   ...
 )
@@ -37,6 +40,10 @@ mdweave_to_html(
 
 \item{extra_arguments2}{extra arguments passed on to pandoc. Should be a length 1
 character vector.}
+
+\item{run_in_temp}{When TRUE the intermediary markdown file and generated figures (when
+not using custom paths) are created in a temporary directory. Otherwise these will be
+generated in the same directory as the output file.}
 
 \item{cmd2}{command used to run pandoc. See details.}
 
