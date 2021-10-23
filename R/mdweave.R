@@ -22,6 +22,11 @@
 #' is the temporary file with the modified parse tree and the second argument
 #' the output file.
 #'
+#' @return
+#' Returns the file name of the file generated (\code{ofn}). Called mainly for the
+#' side effect of parsing and generating a markdown file (and possibly secondary
+#' files such as figures).
+#'
 #' @export
 #' 
 mdweave <- function(fn, ofn = file_subs_ext(basename(fn), ".md", FALSE), 

@@ -3,7 +3,6 @@ aggregate(iris[1:4], iris["Species"], mean)
 
 # figure
 pal <- hcl.colors(3, "Dark2")
-par(mar = c(4, 4, 1, 1) + 0.5)
 plot(iris$Sepal.Width, iris$Sepal.Length, pch = 20, 
   col = pal[iris$Species], xlab = "Sepal Width", 
   ylab = "Sepal Length", bty = 'n', las = 1)

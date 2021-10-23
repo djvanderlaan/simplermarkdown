@@ -2,7 +2,7 @@
 % Please edit documentation in R/raw_block.R
 \name{raw_block}
 \alias{raw_block}
-\title{Return a raw object that can be included in the pandoc parse tree}
+\title{Return a raw chunk of text that can be included in the pandoc parse tree}
 \usage{
 raw_block(content, language = "markdown")
 }
@@ -12,8 +12,12 @@ in the final document.}
 
 \item{language}{language of the content}
 }
+\value{
+Returns a \code{list} with the correct structure for a \code{RowBlock} in
+the pandoc parse tree.
+}
 \description{
-Return a raw object that can be included in the pandoc parse tree
+Return a raw chunk of text that can be included in the pandoc parse tree
 }
 \details{
 A raw block is included as is into the final markdown document. This can

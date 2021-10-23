@@ -6,7 +6,7 @@ library(simplermarkdown)
 # Create tempdir
 dir <- tempdir()
 dir.create(dir, recursive = TRUE, showWarnings = FALSE)
-setwd(dir)
+oldwd <- setwd(dir)
 
 # When running tests the environment variable R_TESTS is set. This
 # causes issues when running a second R instance as mdweave does. Therefore
@@ -55,4 +55,5 @@ unlink(r)
 
 
 Sys.setenv("R_TESTS" = old_env)
+setwd(oldwd)
 

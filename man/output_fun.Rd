@@ -36,6 +36,11 @@ passed on to other functions (see 'Details').}
 output of code that explicitly writes to standard output is always
 included.}
 }
+\value{
+The functions either return a character vector with markdown,
+or return a list with the correct structure to include in the pandow parse
+tree.
+}
 \description{
 Output filters for code blocks in markdown
 }

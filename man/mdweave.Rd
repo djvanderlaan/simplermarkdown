@@ -23,6 +23,11 @@ mdweave(
 
 \item{...}{ignored}
 }
+\value{
+Returns the file name of the file generated (\code{ofn}). Called mainly for the
+side effect of parsing and generating a markdown file (and possibly secondary
+files such as figures).
+}
 \description{
 Run the code in a markdown file and generate a new markdown file
 }

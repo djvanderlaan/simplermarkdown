@@ -15,6 +15,10 @@ it does not start with a period a period is added).}
 \item{check}{check if the new file name is not equal to the original
 filename. If so, generate an error.}
 }
+\value{
+Returns a character vector of the same length of \code{fn} with the
+extension of the file names in \code{fn} replaced by \code{new_ext}.
+}
 \description{
 Replace file extension by another file extension
 }

@@ -15,6 +15,10 @@ markdown_block(content, language, id = "", ...)
 
 \item{...}{ignored.}
 }
+\value{
+Returns a \code{list} with the correct structure for a code block in
+the pandoc parse tree.
+}
 \description{
 Return a code block object that can be included in the pandoc parse tree
 }

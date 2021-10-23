@@ -31,6 +31,11 @@
 #' through pandoc. The easiest way is to \code{\link{source}} or define the 
 #' function in the markdown document before using it. 
 #'
+#' @return
+#' The functions either return a character vector with markdown,  
+#' or return a list with the correct structure to include in the pandow parse 
+#' tree. 
+#'
 #' @rdname output_fun
 #' @export
 #' 

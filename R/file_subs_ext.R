@@ -6,6 +6,10 @@
 #'   it does not start with a period a period is added).
 #' @param check check if the new file name is not equal to the original 
 #'   filename. If so, generate an error.
+#' 
+#' @return 
+#' Returns a character vector of the same length of \code{fn} with the
+#' extension of the file names in \code{fn} replaced by \code{new_ext}.
 #'
 #' @export
 file_subs_ext <- function(fn, new_ext, check = TRUE) {
