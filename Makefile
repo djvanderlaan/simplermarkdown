@@ -10,13 +10,13 @@ build_firsttime: document
 	cd work && R CMD build --no-build-vignettes ../
 
 check: build
-	cd work && R CMD check --as-cran `ls simplermarkdown_* | sort | head -n 1`
+	cd work && R CMD check --as-cran `ls simplermarkdown_* | sort | tail -n 1`
 
 document:
 	R -e "roxygen2::roxygenise()"
 
 install: build
-	R CMD INSTALL `ls work/simplermarkdown_* | sort | head -n 1` 
+	R CMD INSTALL `ls work/simplermarkdown_* | sort | tail -n 1` 
 
 gen_test: install
 	Rscript work/generate_test_reference.R
