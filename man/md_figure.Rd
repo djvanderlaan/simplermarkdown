@@ -11,8 +11,10 @@ md_figure(
   id = "",
   dir = file.path(Sys.getenv("MDOUTDIR", "."), "figures"),
   device = c("png", "pdf"),
+  ...,
   as_character = FALSE,
-  ...
+  echo = FALSE,
+  results = FALSE
 )
 }
 \arguments{
@@ -31,15 +33,21 @@ character, no id is added to the figure.}
 
 \item{device}{the graphics device to use for creating the image.}
 
+\item{...}{passed on to the graphics device.}
+
 \item{as_character}{return the figure as a character vector. If \code{FALSE}
 the figure will be written to the standard output.}
 
-\item{...}{passed on to the graphics device.}
+\item{echo}{the code in \code{code} is repeated in the output.}
+
+\item{results}{include the results of running the code in the output. The
+output of code that explicitly writes to standard output is always
+included.}
 }
 \value{
-Then \code{as_character = FALSE} a character vector with the markdown needed
+When \code{as_character = FALSE} a character vector with the markdown needed
 to include the generated figure in a markdown file is returned. Otherwise,
-nothing is returned; the markdown is then written to the console.
+nothing is returned; the markdown is written to the console.
 }
 \description{
 Will evaluate the expressions in \code{expr} and capture the output on the

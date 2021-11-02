@@ -26,7 +26,7 @@ aggregate(iris[1:4], iris["Species"], mean)
 
 ```{.R #figure fun=output_figure 
   caption="Relation between sepal length and width for the different iris species." 
-  name="iris" height=6 width=8 units="in" res=150}
+  name="iris" height=6 width=8 units="in" res=150 echo=TRUE}
 pal <- hcl.colors(3, "Dark2")
 plot(iris$Sepal.Width, iris$Sepal.Length, pch = 20, 
   col = pal[iris$Species], xlab = "Sepal Width", 
