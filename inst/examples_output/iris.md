@@ -27,6 +27,15 @@ colums in the data set.
 |versicolor|5.936       |2.770      |4.260       |1.326      |
 |virginica |6.588       |2.974      |5.552       |2.026      |
 
+```
+> pal <- hcl.colors(3, "Dark2")
+> plot(iris$Sepal.Width, iris$Sepal.Length, pch = 20, 
++     col = pal[iris$Species], xlab = "Sepal Width", ylab = "Sepal Length", 
++     bty = "n", l .... [TRUNCATED] 
+> legend("topright", legend = levels(iris$Species), 
++     fill = pal, bty = "n", border = NA)
+```
+
 ![Relation between sepal length and width for the different iris species.](./figures/iris.png){#figure}
 
 Species prediction
@@ -34,9 +43,13 @@ Species prediction
 
 ``` {.R}
 > library(MASS)
+
 > m <- lda(Species ~ Sepal.Width + Sepal.Length, data = iris)
+
 > p <- predict(m)
+
 > predicted_species <- p$class
+
 > table(predicted_species, iris$Species)
                  
 predicted_species setosa versicolor virginica

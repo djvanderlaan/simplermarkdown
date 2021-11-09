@@ -26,7 +26,7 @@ the markdown file).}
 
 \item{id}{the identifier of the code block.}
 
-\item{...}{additional arguments speficied as arguments in the code block are
+\item{...}{additional arguments specified as arguments in the code block are
 passed on to the filter function. Often these are ignored, or they are
 passed on to other functions (see 'Details').}
 

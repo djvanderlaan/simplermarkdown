@@ -4,7 +4,7 @@
 #' @param language the language in which the code is written (as specified in 
 #'   the markdown file).
 #' @param id the identifier of the code block.
-#' @param ... additional arguments speficied as arguments in the code block are
+#' @param ... additional arguments specified as arguments in the code block are
 #'   passed on to the filter function. Often these are ignored, or they are 
 #'   passed on to other functions (see 'Details').
 #' @param echo the code in \code{code} is repeated in the output. 
@@ -60,8 +60,10 @@ output_figure <- function(code, language = "R", id = "", ...) {
 output_eval <- function(code, language = "R", id = "", echo = TRUE, 
     results = TRUE, ...) {
   res <- utils::capture.output(
-    source(exprs = str2expression(code), echo = echo, print.eval = results)
+    source(textConnection(code), echo = echo, print.eval = results, 
+      max.deparse.length = Inf)
   )
+  if (echo && length(res) >= 1 && res[1] == "") res <- utils::tail(res, -1)
   res <- paste0(res, collapse="\n")
   markdown_block(res, language, id, ...)
 }
