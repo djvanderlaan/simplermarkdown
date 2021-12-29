@@ -9,7 +9,7 @@
 #' @param name the name of the figure. 
 #' @param caption text of the caption. When omitted no caption is added to the
 #'   figure.
-#' @param id id of the figure. When omitted or equal to NULL or an empry 
+#' @param id id of the figure. When omitted or equal to NULL or an empty 
 #'   character, no id is added to the figure.
 #' @param dir name of the directory in which to store the file. 
 #' @param device the graphics device to use for creating the image.

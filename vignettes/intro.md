@@ -66,8 +66,8 @@ a
 `````
 
 By default the code in the code block is run and both the code and the output of
-the code are shown in the generated new code block. In the resulting output file 
-this wil result in
+the code are shown in the generated new code block. In the output file this
+will result in
 
 ```{#codeblock1 .R}
 a <- 1+1
@@ -101,20 +101,6 @@ function. Depending on the function used this can result in a code blocks with
 the evaluated code (the default), tables, figures and you can also specify your
 own functions.
 
-### Tables
-
-To generate a table, we tell it to pass the code in the code block to the
-function `output_table` from the `simplermarkdown` package. This function will
-take the final result and generate a markdown table from that. Any additional
-arguments of the code block are passed on to the `output_table` function.
-
-`````
-```{.R fun=output_table caption="Sample iris"}
-dta$foo <- dta$Sepal.Width/dta$Sepal.Length
-dta[1:20, ]
-```
-`````
-
 
 ### Figures
 
@@ -123,13 +109,58 @@ the code, capture any output on the specified device and generate a markdown
 image include.
 
 `````
-```{.R fun=output_figure name="test" caption="My figure" device="pdf" width=8 
-  height=6}
+```{.R #myfigure fun=output_figure name="test" caption="My figure" 
+  device="pdf" width=8 height=6}
 plot(dta$Sepal.Width, dta$Petal.Width)
 ```
 `````
 
-The figures are saved in the folder `figures` in the current folder. 
+`output_figure` accepts the options `caption` (default none), `device` (possible
+values are `"png"` and `"pdf"`), `echo` (default `FALSE`; echo the commands to
+the output) and `results` (default `FALSE`; show output of the command (other
+than the figure) in the output).  Additional arguments such as `width` and
+`height` are passed on to the device (in this case `pdf()`). When an id is given
+for the code block (as `#myfigure` above) this is also added to the figure.
+
+The figures are saved in the folder `figures` in the current folder. This can be
+controlled by the `dir` argument. 
+
+### Tables
+
+To generate a table, we tell it to pass the code in the code block to the
+function `output_table` from the `simplermarkdown` package. This function will
+take the final result and generate a markdown table from that. Any additional
+arguments of the code block are passed on to the `output_table` function.
+
+`````
+```{.R #mytable fun=output_table caption="Sample iris"}
+dta$foo <- dta$Sepal.Width/dta$Sepal.Length
+dta[1:20, ]
+```
+`````
+
+`output_table` only accepts the `caption` argument. Unfortunately, pandoc does
+not yet support adding id's to tables at the moment without the
+[pandoc crossref filter](https://github.com/lierdakil/pandoc-crossref).
+Therefore, simplermarkdown also doesn't add the id to the resulting table as
+this would interfere with regular pandoc use. Should you want to add an id to
+the table in order to use it with the crossref filter: you can either do
+
+````
+: Sample iris {#mytable}
+
+```{.R fun=output_table}
+iris[1:5, ]
+```
+````
+or 
+
+````
+```{.R fun=output_table caption="Sample iris {#mytable}"}
+iris[1:5, ]
+```
+````
+
 
 
 ### Other output
@@ -227,7 +258,7 @@ title: [The title of the vignette]
 By default the default templates and styling of the pandoc installation on your machine 
 will be used.  However, you can also specify custom styling in the header of your markdown
 file. See the [documentation of Pandoc](https://pandoc.org/MANUAL.html) for more 
-information. For example, if you generate HTML output and you want to use a curstom
+information. For example, if you generate HTML output and you want to use a custom
 CSS-stylesheet, you can place the stylesheet in the `vignettes` directory and 
 refer to the stylesheet in the header:
 
@@ -249,7 +280,7 @@ css: custom_styling.css
 
 simplermarkdown tries to assume as little as possible about possible workflows.
 However, this also means that you, the user, are responsible for some things
-where other packages might make assumtions.  One of the places where this is
+where other packages might make assumpptions.  One of the places where this is
 the case is for paths and working directories. And this is especially 
 relevant when including figures and when generating figures using R.
 
@@ -271,7 +302,7 @@ plot(1:10)
 ```
 `````
 
-Assume the current working directory is the root of the project directory. 
+Assume the current working directory is the root of the project directory 
 and that we run `mdweave` as:
 
 `````
@@ -312,7 +343,7 @@ any of the figures.
 
 There are several possible solutions for the example above:
 
-- When working on linux of mac, you could create a symbolic link from
+- When working on linux or mac, you could create a symbolic link from
   `report/output/figures` to `report/figures`. 
 - Copy `report/figures` to `report/output/figures`. 
 - Path of least resistance: run `mdweave` and `pandoc` from the

@@ -26,7 +26,7 @@ commands. The expressions are evaluated in the global environment.}
 \item{caption}{text of the caption. When omitted no caption is added to the
 figure.}
 
-\item{id}{id of the figure. When omitted or equal to NULL or an empry
+\item{id}{id of the figure. When omitted or equal to NULL or an empty
 character, no id is added to the figure.}
 
 \item{dir}{name of the directory in which to store the file.}
