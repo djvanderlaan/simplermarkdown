@@ -10,6 +10,11 @@ filter_pandoc_json_tree <- function(con) {
   } else {
     dta <- rjson::fromJSON(file = con, simplify = FALSE)
   }
+  # Extra step needed to get correct output; when meta is empty make sure
+  # it is a named list; otherwire toJSON will generate 'meta: []' instead
+  # of 'meta: {}' what pandoc expects
+  if (is.list(dta$meta) && length(dta$meta) == 0) 
+    names(dta$meta) <- character(0)
   default_fun <- "output_eval"
   verbosity   <- 1
   # Go over all of the blocks in the tree; check if they contain R code and
