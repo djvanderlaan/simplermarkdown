@@ -54,7 +54,7 @@ The id/label if the block is `codeblock1`.
 
 By default the code in the code block is run and both the code and the
 output of the code are shown in the generated new code block. In the
-resulting output file this wil result in
+output file this will result in
 
 ``` R
 > a <- 1 + 1
@@ -190,7 +190,7 @@ By default the default templates and styling of the pandoc installation
 on your machine will be used. However, you can also specify custom
 styling in the header of your markdown file. See the [documentation of
 Pandoc](https://pandoc.org/MANUAL.html) for more information. For
-example, if you generate HTML output and you want to use a curstom
+example, if you generate HTML output and you want to use a custom
 CSS-stylesheet, you can place the stylesheet in the `vignettes`
 directory and refer to the stylesheet in the header:
 
@@ -208,7 +208,7 @@ directory and refer to the stylesheet in the header:
 
 simplermarkdown tries to assume as little as possible about possible
 workflows. However, this also means that you, the user, are responsible
-for some things where other packages might make assumtions. One of the
+for some things where other packages might make assumptions. One of the
 places where this is the case is for paths and working directories. And
 this is especially relevant when including figures and when generating
 figures using R.
@@ -230,7 +230,7 @@ The report contains the following code:
     ```
 
 Assume the current working directory is the root of the project
-directory. and that we run `mdweave` as:
+directory and that we run `mdweave` as:
 
     mdweave("report/report.md", "report/output/report.md")
 
@@ -265,7 +265,7 @@ figures.
 
 There are several possible solutions for the example above:
 
-  - When working on linux of mac, you could create a symbolic link from
+  - When working on linux or mac, you could create a symbolic link from
     `report/output/figures` to `report/figures`.
   - Copy `report/figures` to `report/output/figures`.
   - Path of least resistance: run `mdweave` and `pandoc` from the
