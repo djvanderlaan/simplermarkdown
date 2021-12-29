@@ -1,0 +1,23 @@
+
+
+CHANGES IN SIMPLERMARKDOWN 0.0.5:
+
+  NEW FEATURES:
+
+  - `md_figure` and `output_figure` can now echo the commands used to generate the
+    figure. Use the arguments `echo` and `results` for that. 
+
+  BUG FIXES:
+
+  - Markdown documents without a header block would generate an error. Fixed.
+
+  - Output was truncated for longer blocks of code. Fixed.
+
+  - Expressions such as `iris[, foo := Sepal.Width/Sepal.Length]` were
+    'translated' to `iris[, `:=`(foo, Sepal.Width/Sepal.Length)]` in the output.
+    Fixed.
+
+  - When pandoc is not installed an empty dummy vignette is generated. This
+    prevents warnings on the CRAN machines without pandoc. This should already
+    have been working in the previous version except for a bug. 
+
