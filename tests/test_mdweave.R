@@ -90,7 +90,19 @@ if (simplermarkdown:::has_pandoc()) {
   unlink("figures")
 
 
+  # =============================================================================
+  # An markdown file without a header block gave an error with version 0.0.3. 
+  # Regression test
+  fn <- tempfile(fileext=".md")
+  writeLines("# Introduction", fn)
+  fn2 <- tempfile(fileext=".md")
+  mdweave(fn, fn2)
+  unlink(fn)
+  unlink(fn2)
+
+  
+  # =============================================================================
+  # END
   Sys.setenv("R_TESTS" = old_env)
   setwd(oldwd)
-
 }
