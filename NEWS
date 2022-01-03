@@ -1,11 +1,14 @@
 
 
-CHANGES IN SIMPLERMARKDOWN 0.0.5:
+CHANGES IN SIMPLERMARKDOWN 0.0.4:
 
   NEW FEATURES:
 
   - `md_figure` and `output_figure` can now echo the commands used to generate the
     figure. Use the arguments `echo` and `results` for that. 
+
+  - Errors with hopefully more informative error messages in case something goes 
+    wrong with the calls to pandoc.
 
   BUG FIXES:
 

@@ -37,9 +37,10 @@ mdweave <- function(fn, ofn = file_subs_ext(basename(fn), ".md", FALSE),
       "Specify another output filename (ofn).")
   # Convert markdown to a parse tree in json
   tmp_ofn <- tempfile(fileext = ".json")
-  on.exit(file.remove(tmp_ofn))
   cmd1 <- sprintf(cmd1, fn, tmp_ofn)
-  system(cmd1)
+  run_cmd(cmd1, paste0("Failed to parse the markdown document to JSON (cmd1). ",  
+    "This probably means that the input markdown document contains errors. ", 
+    "The command was '%3$s'." ))
   # Set environment variable with location of output file
   # Possibly needed for filters to know where to put output
   # files such as figures
@@ -50,12 +51,36 @@ mdweave <- function(fn, ofn = file_subs_ext(basename(fn), ".md", FALSE),
   # Filter json (run R code in json) and save result
   dta <- filter_pandoc_json_tree(tmp_ofn)
   tmp_ifn <- tempfile(fileext = ".json")
-  on.exit(file.remove(tmp_ifn))
   writeLines(rjson::toJSON(dta), tmp_ifn)
   # Convert json back to markdown
   cmd2 <- sprintf(cmd2, tmp_ifn, ofn)
-  system(cmd2)
+  run_cmd(cmd2, paste0("Failed to convert the processed JSON file back to ", 
+    "markdown (cmd2). Either on of the output functions contains an error ",
+    "or simplermarkdown has written invalid JSON. ",
+    "The command was '%3$s'." ))
+  # Cleanup; an earlier version used on.exit for this; currrent solution has the 
+  # advantage that in case of an error the old file are not deleted and can be
+  # used for debugging
+  file.remove(tmp_ofn)
+  file.remove(tmp_ifn)
   # Return filename of the final file 
   invisible(ofn)
+}
+
+run_cmd <- function(cmd, error_msg = "Failed to run '%1$s'; failed with status %2$d") {
+  command <- gsub("^([a-zA-Z0-9]+) (.*)$", "\\1", cmd)
+  args <- gsub("^([a-zA-Z0-9]+) (.*)$", "\\2", cmd)
+  suppressWarnings({
+    status <- system2(command, args)
+  })
+  if (status != 0) {
+    if (status == 127) {
+      stop("Running '", command, "' had status 127; this generally means that ",
+        "'", command, "' could not be found. Make sure '", command, 
+        "' in on the path.")
+    } else {
+      stop(suppressWarnings(sprintf(error_msg, command, status, cmd)))
+    }
+  }
 }
 

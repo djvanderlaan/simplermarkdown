@@ -46,7 +46,9 @@ mdweave_to_pdf <- function(fn, ofn = file_subs_ext(basename(fn), ".pdf", FALSE),
   if (ofn == fn) stop("Output file (ofn) would overwrite input file (fn). ", 
       "Specify another output filename (ofn).")
   cmd2 <- sprintf(cmd2, ofn_md, ofn, extra_arguments2)
-  system(cmd2)
+  run_cmd(cmd2, paste0("Failed to convert the markdown file to PDF. ", 
+    "You may want to first run mdweave and inspect the resulting markdown ", 
+    "file. The command was '%3$s'."))
   invisible(ofn)
 }
 
@@ -70,7 +72,9 @@ mdweave_to_tex <- function(fn, ofn = file_subs_ext(basename(fn), ".tex", FALSE),
   if (ofn == fn) stop("Output file (ofn) would overwrite input file (fn). ", 
       "Specify another output filename (ofn).")
   cmd2 <- sprintf(cmd2, ofn_md, ofn, extra_arguments2)
-  system(cmd2)
+  run_cmd(cmd2, paste0("Failed to convert the markdown file to tex. ", 
+    "You may want to first run mdweave and inspect the resulting markdown ", 
+    "file. The command was '%3$s'."))
   invisible(ofn)
 }
 
@@ -94,7 +98,9 @@ mdweave_to_html <- function(fn, ofn = file_subs_ext(basename(fn), ".html", FALSE
   if (ofn == fn) stop("Output file (ofn) would overwrite input file (fn). ", 
       "Specify another output filename (ofn).")
   cmd2 <- sprintf(cmd2, ofn_md, ofn, extra_arguments2)
-  system(cmd2)
+  run_cmd(cmd2, paste0("Failed to convert the markdown file to HTML. ", 
+    "You may want to first run mdweave and inspect the resulting markdown ", 
+    "file. The command was '%3$s'."))
   invisible(ofn)
 }
 
