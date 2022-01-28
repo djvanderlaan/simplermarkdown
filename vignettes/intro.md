@@ -53,8 +53,6 @@ directly.
 
 
 ## Writing markdown
-
-
 An example of a basic code block tagged as being R-code is shown below. 
 The id/label if the block is `codeblock1`.  
 
@@ -101,9 +99,7 @@ function. Depending on the function used this can result in a code blocks with
 the evaluated code (the default), tables, figures and you can also specify your
 own functions.
 
-
 ### Figures
-
 To generate a figure use the `output_figure` function. The function will run
 the code, capture any output on the specified device and generate a markdown
 image include.
@@ -126,7 +122,6 @@ The figures are saved in the folder `figures` in the current folder. This can be
 controlled by the `dir` argument. 
 
 ### Tables
-
 To generate a table, we tell it to pass the code in the code block to the
 function `output_table` from the `simplermarkdown` package. This function will
 take the final result and generate a markdown table from that. Any additional
@@ -164,7 +159,6 @@ iris[1:5, ]
 
 
 ### Other output
-
 By using the `output_raw` filter, any other output can be generated. This
 function will run the code, capture any output and put that directly into the
 resulting markdown document. For example, let's print a list with all of the
@@ -198,11 +192,8 @@ Hello World!
 `````
 
 
-
-
 Using as a vignette engine
 -----------------------------------------------------------------------
-
 
 To use simplermarkdown as an engine for your R-package vignettes you will need to do the following:
 
@@ -213,9 +204,8 @@ VignetteBuilder: simplermarkdown
 ```
 
 #### Add simplermarkdown as a dependency of your package. 
-
-If your package doesn't use simplermarkdown otherwise
-you can add it to your `Suggests` field in the `DESCRIPTION` file:
+If your package doesn't use simplermarkdown otherwise you can add it to your
+`Suggests` field in the `DESCRIPTION` file:
 
 ```
 Suggests: 
@@ -223,9 +213,7 @@ Suggests:
 ```
 
 #### Use the extension `.md` for your vignette.
-
-Create the vignette in the `vignettes` directory in your 
-package source.
+Create the vignette in the `vignettes` directory in your package source.
 
 #### Specify the vignette engine in your vignette. 
 
@@ -235,9 +223,9 @@ You have to add the following line to your vignette:
 %\VignetteEngine{simplermarkdown::mdweave_to_html}
 ```
 
-Instead of `mdweave_to_html` you can also use `mdweave_to_pdf` to generate a vignette in PDF format. 
-It is easiest to do this in a comment section in your markdown file. For example, start your 
-markdown file with:
+Instead of `mdweave_to_html` you can also use `mdweave_to_pdf` to generate a
+vignette in PDF format. It is easiest to do this in a comment section in your
+markdown file. For example, start your markdown file with:
 
 ```
 <!--
@@ -252,14 +240,13 @@ title: [The title of the vignette]
 [And the contents of your vignette]
 ```
 
-
 ### Custom styling
-
-By default the default templates and styling of the pandoc installation on your machine 
-will be used.  However, you can also specify custom styling in the header of your markdown
-file. See the [documentation of Pandoc](https://pandoc.org/MANUAL.html) for more 
-information. For example, if you generate HTML output and you want to use a custom
-CSS-stylesheet, you can place the stylesheet in the `vignettes` directory and 
+By default the default templates and styling of the pandoc installation on your
+machine will be used.  However, you can also specify custom styling in the
+header of your markdown file. See the
+[documentation of Pandoc](https://pandoc.org/MANUAL.html) for more information.
+For example, if you generate HTML output and you want to use a custom
+CSS-stylesheet, you can place the stylesheet in the `vignettes` directory and
 refer to the stylesheet in the header:
 
 ```
@@ -274,14 +261,11 @@ css: custom_styling.css
 ---
 ```
 
-
-
 ## A note about paths and working directories
-
-simplermarkdown tries to assume as little as possible about possible workflows.
-However, this also means that you, the user, are responsible for some things
-where other packages might make assumpptions.  One of the places where this is
-the case is for paths and working directories. And this is especially 
+`simplermarkdown` tries to assume as little as possible about possible
+workflows. However, this also means that you, the user, are responsible for some
+things where other packages might make assumptions.  One of the places where
+this is the case is for paths and working directories. And this is especially
 relevant when including figures and when generating figures using R.
 
 As an example take the following project directory:
@@ -350,6 +334,5 @@ There are several possible solutions for the example above:
   `report` directory and also put the output in the same directory.
 - And probably others. 
 
-Note that the same issues occur when referencing stylsheets etc. in the 
+Note that the same issues occur when referencing stylesheets etc. in the 
 meta block of the markdown file.
-
