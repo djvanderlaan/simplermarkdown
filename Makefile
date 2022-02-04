@@ -18,9 +18,6 @@ document:
 install: build
 	R CMD INSTALL `ls work/simplermarkdown_* | sort | tail -n 1` 
 
-gen_test: install
-	Rscript work/generate_test_reference.R
-
 readme: 
 	R -e 'simplermarkdown::mdweave("vignettes/intro.md", "README.md", cmd2 = "pandoc %1$$s -t gfm -o %2$$s")'
 
