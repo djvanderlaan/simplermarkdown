@@ -48,3 +48,21 @@ md_figure({
 plot(dta$Sepal.Length, dta$Petal.Length)
 }, name = "foo")
 ```
+
+
+# Some regresion like tests
+
+Following should result in no code block.
+
+```{.R #nooutput1 results=FALSE echo=FALSE}
+a <- 1+1
+a
+```
+
+Following should result in an empty code block.
+
+```{.R #nooutput2 results=FALSE echo=FALSE drop_empty=FALSE}
+a <- 1+1
+a
+```
+

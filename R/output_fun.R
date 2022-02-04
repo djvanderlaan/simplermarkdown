@@ -11,6 +11,8 @@
 #' @param results include the results of running the code in the output. The 
 #'   output of code that explicitly writes to standard output is always 
 #'   included.
+#' @param drop_empty do not include any output if the resulting code block 
+#'   would be empty.
 #'
 #' @details
 #' The filter functions \code{tab} and \code{fig} call 
@@ -58,13 +60,19 @@ output_figure <- function(code, language = "R", id = "", ...) {
 #' @export
 #' 
 output_eval <- function(code, language = "R", id = "", echo = TRUE, 
-    results = TRUE, ...) {
+    results = TRUE, drop_empty = TRUE, ...) {
   res <- utils::capture.output(
     source(textConnection(code), echo = echo, print.eval = results, 
       max.deparse.length = Inf)
   )
   if (echo && length(res) >= 1 && res[1] == "") res <- utils::tail(res, -1)
   res <- paste0(res, collapse="\n")
+  if (drop_empty) {
+    # Check if we have only empty lines or no lines at all; in that case
+    # return empty markdown
+    empty_output <- (length(res) == 0) || all((grepl("^[[:blank:]]*$", res)))
+    if (empty_output) return(raw_block(""))
+  }
   markdown_block(res, language, id, ...)
 }
 

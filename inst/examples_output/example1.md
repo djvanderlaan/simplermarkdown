@@ -61,3 +61,14 @@ The mean of `Sepal.Width` is 3.06. This is larger than 2.
 
 
 ![](./figures/foo.png)
+
+Some regresion like tests
+=========================
+
+Following should result in no code block.
+
+
+Following should result in an empty code block.
+
+``` {#nooutput2 .R}
+```

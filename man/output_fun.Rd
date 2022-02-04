@@ -12,7 +12,15 @@ output_table(code, language = "R", id = "", ...)
 
 output_figure(code, language = "R", id = "", ...)
 
-output_eval(code, language = "R", id = "", echo = TRUE, results = TRUE, ...)
+output_eval(
+  code,
+  language = "R",
+  id = "",
+  echo = TRUE,
+  results = TRUE,
+  drop_empty = TRUE,
+  ...
+)
 
 output_raw(code, language = "R", id = "", ...)
 
@@ -35,6 +43,9 @@ passed on to other functions (see 'Details').}
 \item{results}{include the results of running the code in the output. The
 output of code that explicitly writes to standard output is always
 included.}
+
+\item{drop_empty}{do not include any output if the resulting code block
+would be empty.}
 }
 \value{
 The functions either return a character vector with markdown,
