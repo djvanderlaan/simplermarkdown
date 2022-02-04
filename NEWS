@@ -1,6 +1,18 @@
 
+CHANGES IN SIMPLERMARKDOWN 0.0.6:
+
+  NEW FEATURES:
+
+  - New function `output_shell` that can be used to include and run non-R code
+    blocks using `system2`. Code and output can be included in the resulting
+    document.
+
+  BUG FIXES:
+
+  - Empty code blocks are now by default omitted in the output.
 
 CHANGES IN SIMPLERMARKDOWN 0.0.4:
+
 
   NEW FEATURES:
 

@@ -6,6 +6,7 @@
 \alias{output_eval}
 \alias{output_raw}
 \alias{output_str}
+\alias{output_shell}
 \title{Output filters for code blocks in markdown}
 \usage{
 output_table(code, language = "R", id = "", ...)
@@ -25,6 +26,17 @@ output_eval(
 output_raw(code, language = "R", id = "", ...)
 
 output_str(code, language = "R", id = "", ...)
+
+output_shell(
+  code,
+  language,
+  id = "",
+  cmd = language,
+  echo = TRUE,
+  results = TRUE,
+  comment_char = "# ",
+  ...
+)
 }
 \arguments{
 \item{code}{character vector containing the code of the code block}
@@ -46,17 +58,23 @@ included.}
 
 \item{drop_empty}{do not include any output if the resulting code block
 would be empty.}
+
+\item{cmd}{the command to use in the \code{\link{system2}} call. Only needed
+when different than the language.}
+
+\item{comment_char}{string prepended to output of commands run by
+\code{output_shell}.}
 }
 \value{
 The functions either return a character vector with markdown,
-or return a list with the correct structure to include in the pandow parse
+or return a list with the correct structure to include in the pandoc parse
 tree.
 }
 \description{
 Output filters for code blocks in markdown
 }
 \details{
-The filter functions \code{tab} and \code{fig} call
+The filter functions \code{output_table} and \code{output_figure} call
 \code{\link{md_table}} and \code{\link{md_figure}} respectively; additional
 arguments are passed on to those functions. Other filter functions ignore the
 additional arguments.
@@ -73,4 +91,12 @@ small number of valid object constructors: \code{\link{raw_block}} and
 The custom function should be available when running the markdown document
 through pandoc. The easiest way is to \code{\link{source}} or define the
 function in the markdown document before using it.
+
+The filter function \code{output_shell} can be used to process chunks of code
+from other languages than R. These chunks of code are written to a temporary
+file which is then ran using the \code{cmd} using a call to
+\code{\link{system2}}. The output of that is captured and when \code{results
+= TRUE} included in the output. The output lines are prepended by
+\code{comment_char}. When \code{echo = TRUE} the code is also included before
+the output.
 }

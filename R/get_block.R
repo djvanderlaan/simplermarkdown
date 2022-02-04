@@ -4,7 +4,7 @@ get_block <- function(block) {
   id <- block$c[[1]][[1]]
   language <- if (length(block$c[[1]][[2]]))
     block$c[[1]][[2]][[1]] else ""
-  if (language != "R") return(NULL)
+  #if (language != "R") return(NULL)
   args1 <- if (length(block$c[[1]][[2]]) > 1) {
     utils::tail(unlist(block$c[[1]][[2]]), -1)
   } else character(0L)

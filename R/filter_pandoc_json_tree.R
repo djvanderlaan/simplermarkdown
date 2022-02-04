@@ -83,7 +83,9 @@ evaluate_inline_code <- function(block, verbosity = 1) {
 
 evaluate_code_block <- function(block, default_fun = "output_eval", verbosity = 1) {
   b <- get_block(block)
-  if (!is.null(b) && b$language == "R") {
+  if (is.null(b)) return(block)
+
+  if (b$language == "R") {
     id <- if (b$id == "") "<unlabeled code block>" else b$id
     if (verbosity > 0) message("Evaluating code in block '", id, "'.")
     if (exists("fun", b$arguments)) {
@@ -95,8 +97,18 @@ evaluate_code_block <- function(block, default_fun = "output_eval", verbosity = 
     res <- do.call(fun, c(
       list(code = b$code, id = b$id, language = b$language), b$arguments))
     block <- if (is.character(res)) raw_block(res) else res
+  } else {
+    # Other languages than R; only run if output fun is given
+    if (exists("fun", b$arguments)) {
+      id <- if (b$id == "") "<unlabeled code block>" else b$id
+      if (verbosity > 0) message("Evaluating ", b$language, " code in block '", id, "'.")
+      fun <- b$arguments$fun 
+      b$arguments$fun <- NULL
+      res <- do.call(fun, c(
+        list(code = b$code, id = b$id, language = b$language), b$arguments))
+      block <- if (is.character(res)) raw_block(res) else res
+    }
   }
   block
 }
-
 
