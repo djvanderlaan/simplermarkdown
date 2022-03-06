@@ -29,7 +29,7 @@ run_and_capture <- function(code, echo = TRUE, results = TRUE, output = results)
   )
   # Convert the output to something structured
   # Remove empty first line
-  if (outp[1] == "") outp <- utils::tail(outp, -1)
+  if (length(outp) && outp[1] == "") outp <- utils::tail(outp, -1)
   # Split into separate commands with its output
   regexp <- paste0("^", prompts$prompt)
   outp <- split(outp, cumsum(grepl(regexp, outp)))
