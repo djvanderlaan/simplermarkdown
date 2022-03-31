@@ -10,7 +10,7 @@
 #' be used for example to include raw chunks of markdown.
 #'
 #' @return 
-#' Returns a \code{list} with the correct structure for a \code{RowBlock} in 
+#' Returns a \code{list} with the correct structure for a \code{RawBlock} in 
 #' the pandoc parse tree.
 #'
 #' @export

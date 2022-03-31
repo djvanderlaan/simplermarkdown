@@ -78,6 +78,8 @@ output_eval <- function(code, language = "R", id = "", echo = TRUE,
       max.deparse.length = Inf)
   )
   if (echo && length(res) >= 1 && res[1] == "") res <- utils::tail(res, -1)
+  #res <- run_and_capture(code, results = results, echo = echo)
+  #res <- format_traditional(res)
   res <- paste0(res, collapse="\n")
   if (drop_empty) {
     # Check if we have only empty lines or no lines at all; in that case
