@@ -31,7 +31,7 @@
 #' 
 mdweave <- function(fn, ofn = file_subs_ext(basename(fn), ".md", FALSE), 
     cmd1 = 'pandoc -s "%1$s" -t json -o "%2$s"', 
-    cmd2 = 'pandoc -s "%1$s" -t markdown -o "%2$s"', ...) {
+    cmd2 = 'pandoc -s "%1$s" -t markdown%3$s -o "%2$s"', ...) {
   # Check if output filename does nog conflict with input filename
   if (ofn == fn) stop("Output file (ofn) would overwrite input file (fn). ", 
       "Specify another output filename (ofn).")
@@ -53,7 +53,8 @@ mdweave <- function(fn, ofn = file_subs_ext(basename(fn), ".md", FALSE),
   tmp_ifn <- tempfile(fileext = ".json")
   writeLines(rjson::toJSON(dta), tmp_ifn)
   # Convert json back to markdown
-  cmd2 <- sprintf(cmd2, tmp_ifn, ofn)
+  extensions <- get_extensions()
+  cmd2 <- sprintf(cmd2, tmp_ifn, ofn, extensions)
   run_cmd(cmd2, paste0("Failed to convert the processed JSON file back to ", 
     "markdown (cmd2). Either on of the output functions contains an error ",
     "or simplermarkdown has written invalid JSON. ",

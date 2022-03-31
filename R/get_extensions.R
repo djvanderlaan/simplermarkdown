@@ -21,7 +21,7 @@ get_extensions <- function() {
   # block. This is not recognised when converting to other formats.
   has_raw <- any(grepl("^[+-]raw_attribute", supported_extensions))
   if (has_raw) {
-    extensions <- past0(extensions, "-raw_attribute")
+    extensions <- paste0(extensions, "-raw_attribute")
   }
   extensions
 }
