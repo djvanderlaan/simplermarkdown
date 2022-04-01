@@ -8,7 +8,7 @@ mdweave(
   fn,
   ofn = file_subs_ext(basename(fn), ".md", FALSE),
   cmd1 = "pandoc -s \\"\%1$s\\" -t json -o \\"\%2$s\\"",
-  cmd2 = "pandoc -s \\"\%1$s\\" -t markdown -o \\"\%2$s\\"",
+  cmd2 = "pandoc -s \\"\%1$s\\" -t markdown\%3$s -o \\"\%2$s\\"",
   ...
 )
 }
@@ -46,4 +46,9 @@ to pandoc. They use positional arguments. In \code{cmd1}, the first argument
 temporary file containing the parsed tree. In \code{cmd2}, the first argument
 is the temporary file with the modified parse tree and the second argument
 the output file.
+
+\code{cmd2} also has a third argument (\code{\%3$s}) that contains a list of
+extensions that are enabled or disabled. This is because some extensions
+interfere with the conversion of the parsed tree to markdown. See
+\code{\link{get_extensions}} to see which extensions are disabled.
 }

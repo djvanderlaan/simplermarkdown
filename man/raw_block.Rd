@@ -13,7 +13,7 @@ in the final document.}
 \item{language}{language of the content}
 }
 \value{
-Returns a \code{list} with the correct structure for a \code{RowBlock} in
+Returns a \code{list} with the correct structure for a \code{RawBlock} in
 the pandoc parse tree.
 }
 \description{

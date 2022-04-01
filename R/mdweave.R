@@ -22,6 +22,11 @@
 #' is the temporary file with the modified parse tree and the second argument
 #' the output file.
 #'
+#' \code{cmd2} also has a third argument (\code{%3$s}) that contains a list of
+#' extensions that are enabled or disabled. This is because some extensions
+#' interfere with the conversion of the parsed tree to markdown. See
+#' \code{\link{get_extensions}} to see which extensions are disabled.
+#'
 #' @return
 #' Returns the file name of the file generated (\code{ofn}). Called mainly for the
 #' side effect of parsing and generating a markdown file (and possibly secondary
