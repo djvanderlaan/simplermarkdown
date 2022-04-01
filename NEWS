@@ -4,12 +4,16 @@ CHANGES IN SIMPLERMARKDOWN 0.0.6:
   NEW FEATURES:
 
   - New function `output_shell` that can be used to include and run non-R code
-    blocks using `system2`. Code and output can be included in the resulting
-    document.
+    blocks such as bash and python using `system2`. Code and output can be
+    included in the resulting document.
 
   BUG FIXES:
 
   - Empty code blocks are now by default omitted in the output.
+
+  - The `raw_attribute` pandoc extension present in more recent versions of
+    pandoc interfered with the procesessing of raw markdown blocks. This
+    extension is now disabled.
 
 CHANGES IN SIMPLERMARKDOWN 0.0.4:
 

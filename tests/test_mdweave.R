@@ -9,8 +9,10 @@ if (simplermarkdown:::has_pandoc()) {
   # pandoc version matches that which generated the reference. Otherwise there
   # is a large chance that the output does not match
   pandoc_version <- system("pandoc --version", intern = TRUE)
-  correct_pandoc_version <- c("pandoc 2.5",
-    "Compiled with pandoc-types 1.17.5.4, texmath 0.11.2.2, skylighting 0.7.7")
+  #correct_pandoc_version <- c("pandoc 2.5",
+  #  "Compiled with pandoc-types 1.17.5.4, texmath 0.11.2.2, skylighting 0.7.7")
+  correct_pandoc_version <- c("pandoc 2.9.2.1", 
+    "Compiled with pandoc-types 1.20, texmath 0.12.0.2, skylighting 0.8.5")
   is_correct_pandoc_version <- all(pandoc_version[1:2] == correct_pandoc_version)
 
 

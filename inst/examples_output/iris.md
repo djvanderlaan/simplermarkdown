@@ -43,13 +43,9 @@ Species prediction
 
 ``` {.R}
 > library(MASS)
-
 > m <- lda(Species ~ Sepal.Width + Sepal.Length, data = iris)
-
 > p <- predict(m)
-
 > predicted_species <- p$class
-
 > table(predicted_species, iris$Species)
                  
 predicted_species setosa versicolor virginica
