@@ -48,10 +48,11 @@ md_figure <- function(expr, name, caption = "", id = "",
   on.exit(grDevices::dev.off())
   # in order to handle both md_figure(plot(1:10) and 
   # md_figure(str2expression("plot(1:10)"))
-  expr <- if (is.expression(expr)) expr else as.expression(substitute(expr))
-  res <- utils::capture.output(
-    source(exprs = expr, echo = echo, print.eval = results)
-  )
+  expr <- if (is.expression(expr) || is.character(expr)) expr else 
+    as.expression(substitute(expr))
+  res <- run_and_capture(expr, results = results, echo = echo)
+  res <- format_traditional(res)
+  res <- paste0(res, collapse="\n")
   # Check if, besides a figure, we also need to add the commands and
   # other output to the output
   if (echo || results) {

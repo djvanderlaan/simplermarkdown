@@ -1,7 +1,7 @@
 
 #' Run code and capture the output
 #'
-#' @param code character vector with the code to run
+#' @param code character vector or expression with the code to run
 #' @param echo the code in \code{code} is repeated in the output. 
 #' @param results include the results of running the code in the output. 
 #' @param output include output that is explicitly written to the output, for 
@@ -21,12 +21,21 @@ run_and_capture <- function(code, echo = TRUE, results = TRUE, output = results)
   prompts <- list(prompt = "simplermarkdown1", 
       continue = "simplermarkdown2")
   # Run the code and capture the output
-  outp <- utils::capture.output(
-    source(textConnection(code), echo = echo, spaced = FALSE,
-      print.eval = results, max.deparse.length = Inf, 
-      prompt.echo = prompts$prompt,
-      continue.echo = prompts$continue)
-  )
+  if (is.character(code)) {
+    outp <- utils::capture.output(
+      source(textConnection(code), echo = echo, spaced = FALSE,
+        print.eval = results, max.deparse.length = Inf, 
+        prompt.echo = prompts$prompt,
+        continue.echo = prompts$continue)
+    )
+  } else if (is.expression(code)) {
+    outp <- utils::capture.output(
+      source(exprs = code, echo = echo, spaced = FALSE,
+        print.eval = results, max.deparse.length = Inf, 
+        prompt.echo = prompts$prompt,
+        continue.echo = prompts$continue)
+    )
+  }
   # Convert the output to something structured
   # Remove empty first line
   if (length(outp) && outp[1] == "") outp <- utils::tail(outp, -1)

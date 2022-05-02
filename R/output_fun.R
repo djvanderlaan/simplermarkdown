@@ -63,8 +63,7 @@ output_table <- function(code, language = "R", id = "",  ...) {
 #' @export
 #' 
 output_figure <- function(code, language = "R", id = "", ...) {
-  expr <- str2expression(code)
-  md_figure(expr, as_character = TRUE, id = id, ...)
+  md_figure(code, as_character = TRUE, id = id, ...)
 }
 
 

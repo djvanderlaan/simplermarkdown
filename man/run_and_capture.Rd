@@ -7,7 +7,7 @@
 run_and_capture(code, echo = TRUE, results = TRUE, output = results)
 }
 \arguments{
-\item{code}{character vector with the code to run}
+\item{code}{character vector or expression with the code to run}
 
 \item{echo}{the code in \code{code} is repeated in the output.}
 
