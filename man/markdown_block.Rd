@@ -13,7 +13,8 @@ markdown_block(content, language, id = "", ...)
 
 \item{id}{optional id of the code block}
 
-\item{...}{ignored.}
+\item{...}{additional arguments should be named. These are added to the
+markdown block as additional arguments.}
 }
 \value{
 Returns a \code{list} with the correct structure for a code block in

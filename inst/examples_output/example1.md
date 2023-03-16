@@ -10,7 +10,7 @@ Header
 
 And some text with `inline code`.
 
-``` {#codeblock1 .R}
+``` {#codeblock1 .R additionalargument="42"}
 > a <- 1+1
 > b <- mean(a) + 10
 > # Dit is commentaat

@@ -10,6 +10,9 @@ CHANGES IN SIMPLERMARKDOWN 0.0.6:
   - Added `eval` argument to `output_eval` (the default output filter). When 
     FALSE the code in the block is not run.
 
+  - For `output_eval` additional arguments in the markdown header of the code 
+    block (between the `{}`) are passed on to the output block.
+
   BUG FIXES:
 
   - When run from a non-interactive session the code is no longer reformatted.
