@@ -11,9 +11,10 @@ Header
 And some text with `inline code`.
 
 ``` {#codeblock1 .R}
-> a <- 1 + 1
+> a <- 1+1
 > b <- mean(a) + 10
-> c <- a + b
+> # Dit is commentaat
+> c <- a+b
 > c
 [1] 14
 > dta <- iris

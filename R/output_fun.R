@@ -54,7 +54,7 @@
 #' @export
 #' 
 output_table <- function(code, language = "R", id = "",  ...) {
-  tab <- source(exprs = str2expression(code), echo = FALSE)
+  tab <- source(exprs = str2expression(code), echo = FALSE, keep.source = TRUE)
   md_table(tab$value, as_character = TRUE, ...)
 }
 
@@ -95,7 +95,7 @@ output_eval <- function(code, language = "R", id = "", echo = TRUE,
 #' 
 output_raw <- function(code, language = "R", id = "", ...) {
   res <- utils::capture.output(
-    source(exprs = str2expression(code), echo = FALSE)
+    source(exprs = str2expression(code), echo = FALSE, keep.source = TRUE)
   )
   res <- paste0(res, collapse="\n")
   raw_block(res)
@@ -105,7 +105,7 @@ output_raw <- function(code, language = "R", id = "", ...) {
 #' @export 
 #' 
 output_str <- function(code, language = "R", id = "", ...) {
-  res <- source(exprs = str2expression(code), echo = FALSE)
+  res <- source(exprs = str2expression(code), echo = FALSE, keep.source = TRUE)
   res <- paste0(as.character(res$value), collapse="\n")
   str_block(res)
 }

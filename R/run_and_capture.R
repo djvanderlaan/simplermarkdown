@@ -26,14 +26,16 @@ run_and_capture <- function(code, echo = TRUE, results = TRUE, output = results)
       source(textConnection(code), echo = echo, spaced = FALSE,
         print.eval = results, max.deparse.length = Inf, 
         prompt.echo = prompts$prompt,
-        continue.echo = prompts$continue)
+        continue.echo = prompts$continue,
+        keep.source = TRUE)
     )
   } else if (is.expression(code)) {
     outp <- utils::capture.output(
       source(exprs = code, echo = echo, spaced = FALSE,
         print.eval = results, max.deparse.length = Inf, 
         prompt.echo = prompts$prompt,
-        continue.echo = prompts$continue)
+        continue.echo = prompts$continue,
+        keep.source = TRUE)
     )
   }
   # Convert the output to something structured

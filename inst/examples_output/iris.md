@@ -30,10 +30,10 @@ colums in the data set.
 ```
 > pal <- hcl.colors(3, "Dark2")
 > plot(iris$Sepal.Width, iris$Sepal.Length, pch = 20, 
-+     col = pal[iris$Species], xlab = "Sepal Width", ylab = "Sepal Length", 
-+     bty = "n", l .... [TRUNCATED] 
++   col = pal[iris$Species], xlab = "Sepal Width", 
++   ylab = "Sepal Length", bty = 'n', las = 1)
 > legend("topright", legend = levels(iris$Species), 
-+     fill = pal, bty = "n", border = NA)
++   fill = pal, bty = 'n', border = NA)
 ```
 
 ![Relation between sepal length and width for the different iris species.](./figures/iris.png){#figure}
