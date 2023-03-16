@@ -27,3 +27,6 @@ a
 a <- 1+1
 a
 
+# dontrun
+stop("Dit is een error")
+

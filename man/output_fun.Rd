@@ -20,6 +20,7 @@ output_eval(
   echo = TRUE,
   results = TRUE,
   drop_empty = TRUE,
+  eval = TRUE,
   ...
 )
 
@@ -58,6 +59,9 @@ included.}
 
 \item{drop_empty}{do not include any output if the resulting code block
 would be empty.}
+
+\item{eval}{if FALSE do not run the code and just include the code in the
+output.}
 
 \item{cmd}{the command to use in the \code{\link{system2}} call. Only needed
 when different than the language.}

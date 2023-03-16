@@ -66,3 +66,9 @@ a <- 1+1
 a
 ```
 
+Following code should not be run
+
+```{.R #dontrun eval=FALSE}
+stop("Dit is een error")
+```
+

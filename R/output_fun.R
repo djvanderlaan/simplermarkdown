@@ -13,6 +13,8 @@
 #'   included.
 #' @param drop_empty do not include any output if the resulting code block 
 #'   would be empty.
+#' @param eval if FALSE do not run the code and just include the code in the
+#'   output.
 #' @param cmd the command to use in the \code{\link{system2}} call. Only needed
 #'   when different than the language. 
 #' @param comment_char string prepended to output of commands run by
@@ -71,7 +73,8 @@ output_figure <- function(code, language = "R", id = "", ...) {
 #' @export
 #' 
 output_eval <- function(code, language = "R", id = "", echo = TRUE, 
-    results = TRUE, drop_empty = TRUE, ...) {
+    results = TRUE, drop_empty = TRUE, eval = TRUE, ...) {
+  if (eval == FALSE) return(markdown_block(code, language, id, ...))
   res <- run_and_capture(code, results = results, echo = echo)
   res <- format_traditional(res)
   res <- paste0(res, collapse="\n")
@@ -83,7 +86,6 @@ output_eval <- function(code, language = "R", id = "", echo = TRUE,
   }
   markdown_block(res, language, id, ...)
 }
-
 
 #' @rdname output_fun
 #' @export

@@ -67,3 +67,9 @@ Following should result in an empty code block.
 
 ``` {#nooutput2 .R}
 ```
+
+Following code should not be run
+
+``` {#dontrun .R}
+stop("Dit is een error")
+```

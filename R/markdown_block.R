@@ -13,13 +13,19 @@
 #'
 #' @export
 markdown_block <- function(content, language, id = "", ...) {
+  # parse extra arguments
+  extra <- list(...)
+  if (!all(names(extra) != ""))
+    stop("Additional arguments all need to be named")
+  extra <- lapply(extra, \(x) as.character(x)[1])
+
   list(
     t = "CodeBlock",
     c = list(
       list(
         id,
         list(language),
-        list()
+        extra
       ),
       content
     )

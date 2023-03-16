@@ -7,6 +7,9 @@ CHANGES IN SIMPLERMARKDOWN 0.0.6:
     blocks such as bash and python using `system2`. Code and output can be
     included in the resulting document.
 
+  - Added `eval` argument to `output_eval` (the default output filter). When 
+    FALSE the code in the block is not run.
+
   BUG FIXES:
 
   - When run from a non-interactive session the code is no longer reformatted.
