@@ -72,11 +72,6 @@ output_figure <- function(code, language = "R", id = "", ...) {
 #' 
 output_eval <- function(code, language = "R", id = "", echo = TRUE, 
     results = TRUE, drop_empty = TRUE, ...) {
-  #res <- utils::capture.output(
-  #  source(textConnection(code), echo = echo, print.eval = results, 
-  #    max.deparse.length = Inf)
-  #)
-  #if (echo && length(res) >= 1 && res[1] == "") res <- utils::tail(res, -1)
   res <- run_and_capture(code, results = results, echo = echo)
   res <- format_traditional(res)
   res <- paste0(res, collapse="\n")

@@ -9,6 +9,8 @@ CHANGES IN SIMPLERMARKDOWN 0.0.6:
 
   BUG FIXES:
 
+  - When run from a non-interactive session the code is no longer reformatted.
+
   - Empty code blocks are now by default omitted in the output.
 
   - The `raw_attribute` pandoc extension present in more recent versions of
