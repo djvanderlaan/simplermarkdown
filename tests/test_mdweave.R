@@ -11,9 +11,8 @@ if (simplermarkdown:::has_pandoc()) {
   pandoc_version <- system("pandoc --version", intern = TRUE)
   #correct_pandoc_version <- c("pandoc 2.5",
   #  "Compiled with pandoc-types 1.17.5.4, texmath 0.11.2.2, skylighting 0.7.7")
-  correct_pandoc_version <- c("pandoc 2.9.2.1", 
-    "Compiled with pandoc-types 1.20, texmath 0.12.0.2, skylighting 0.8.5")
-  is_correct_pandoc_version <- all(pandoc_version[1:2] == correct_pandoc_version)
+  correct_pandoc_version <- "pandoc 2.17.1.1"
+  is_correct_pandoc_version <- all(pandoc_version[1] == correct_pandoc_version)
 
 
   # Create tempdir
@@ -30,6 +29,38 @@ if (simplermarkdown:::has_pandoc()) {
   # =============================================================================
   message("Checking iris.md")
   md <- "iris.md"
+
+  message("Weave file")
+  fn <- system.file(file.path("examples", md), package = "simplermarkdown")
+  mdweave(fn)
+
+  message("Check if result generated")
+  stopifnot(file.exists(md))
+
+  if (is_correct_pandoc_version) {
+    message("Compare to reference")
+    lines <- readLines(md)
+    fn_ref <- system.file(file.path("examples_output", md), 
+      package = "simplermarkdown")
+    lines_ref <- readLines(fn_ref)
+    print(all.equal(lines, lines_ref))
+    system(paste0("diff ", md, " ", fn_ref))
+    writeLines(lines)
+    stopifnot(isTRUE(all.equal(lines, lines_ref)))
+  }
+
+  message("Check images")
+  # We don't check if the images are exactly the same; this probably 
+  # depends on the exact output device used; versions etc.
+  stopifnot(file.exists("figures/iris.png"))
+
+  message("Cleanup")
+  #unlink(md)
+  unlink("figures")
+
+  # =============================================================================
+  message("Checking iris.md with format_copypaste")
+  md <- "iris_copypaste.md"
 
   message("Weave file")
   fn <- system.file(file.path("examples", md), package = "simplermarkdown")

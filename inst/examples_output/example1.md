@@ -2,8 +2,7 @@
 title: Title
 ---
 
-Header
-======
+# Header
 
 -   List item
 -   Another list item
@@ -58,8 +57,7 @@ The mean of `Sepal.Width` is 3.06. This is larger than 2.
 
 ![](./figures/foo.png)
 
-Some regresion like tests
-=========================
+# Some regresion like tests
 
 Following should result in no code block.
 

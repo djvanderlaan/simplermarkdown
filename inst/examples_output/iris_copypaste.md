@@ -2,6 +2,7 @@
 title: An analysis of iris
 ---
 
+
 ## Introduction
 
 From the help page of the iris data set:
@@ -26,12 +27,12 @@ colums in the data set.
 |virginica |6.588       |2.974      |5.552       |2.026      |
 
 ```{.R}
-> pal <- hcl.colors(3, "Dark2")
-> plot(iris$Sepal.Width, iris$Sepal.Length, pch = 20, 
-+   col = pal[iris$Species], xlab = "Sepal Width", 
-+   ylab = "Sepal Length", bty = 'n', las = 1)
-> legend("topright", legend = levels(iris$Species), 
-+   fill = pal, bty = 'n', border = NA)
+pal <- hcl.colors(3, "Dark2")
+plot(iris$Sepal.Width, iris$Sepal.Length, pch = 20, 
+  col = pal[iris$Species], xlab = "Sepal Width", 
+  ylab = "Sepal Length", bty = 'n', las = 1)
+legend("topright", legend = levels(iris$Species), 
+  fill = pal, bty = 'n', border = NA)
 ```
 
 ![Relation between sepal length and width for the different iris species.](./figures/iris.png){#figure}
@@ -39,16 +40,16 @@ colums in the data set.
 ## Species prediction
 
 ``` R
-> library(MASS)
-> m <- lda(Species ~ Sepal.Width + Sepal.Length, data = iris)
-> p <- predict(m)
-> predicted_species <- p$class
-> table(predicted_species, iris$Species)
-                 
-predicted_species setosa versicolor virginica
-       setosa         49          0         0
-       versicolor      1         36        15
-       virginica       0         14        35
+library(MASS)
+m <- lda(Species ~ Sepal.Width + Sepal.Length, data = iris)
+p <- predict(m)
+predicted_species <- p$class
+table(predicted_species, iris$Species)
+##                  
+## predicted_species setosa versicolor virginica
+##        setosa         49          0         0
+##        versicolor      1         36        15
+##        virginica       0         14        35
 ```
 
 This model predicts in 80% of the cases the correct species. However,

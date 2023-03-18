@@ -23,6 +23,7 @@ readme:
 
 test_reference:
 	cd inst/examples_output && R -e 'library(simplermarkdown);mdweave("../examples/iris.md", "iris.md")'
+	cd inst/examples_output && R -e 'library(simplermarkdown);mdweave("../examples/iris_copypaste.md", "iris_copypaste.md")'
 	cd inst/examples_output && R -e 'library(simplermarkdown);mdtangle("../examples/iris.md", "iris.R")'
 	cd inst/examples_output && R -e 'library(simplermarkdown);mdweave("../examples/example1.md", "example1.md")'
 	cd inst/examples_output && R -e 'library(simplermarkdown);mdtangle("../examples/example1.md", "example1.R")'
