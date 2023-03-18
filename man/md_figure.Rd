@@ -14,7 +14,8 @@ md_figure(
   ...,
   as_character = FALSE,
   echo = FALSE,
-  results = FALSE
+  results = FALSE,
+  formatter = getOption("md_formatter", default = format_traditional)
 )
 }
 \arguments{
@@ -43,6 +44,9 @@ the figure will be written to the standard output.}
 \item{results}{include the results of running the code in the output. The
 output of code that explicitly writes to standard output is always
 included.}
+
+\item{formatter}{function that will format the R-code and resulting output
+(if requested). See \code{\link{format_traditional}} for possible options.}
 }
 \value{
 When \code{as_character = FALSE} a character vector with the markdown needed

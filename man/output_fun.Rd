@@ -21,6 +21,7 @@ output_eval(
   results = TRUE,
   drop_empty = TRUE,
   eval = TRUE,
+  formatter = getOption("md_formatter", default = format_traditional),
   ...
 )
 
@@ -62,6 +63,9 @@ would be empty.}
 
 \item{eval}{if FALSE do not run the code and just include the code in the
 output.}
+
+\item{formatter}{function that will format the R-code and resulting output
+(if requested). See \code{\link{format_traditional}} for possible options.}
 
 \item{cmd}{the command to use in the \code{\link{system2}} call. Only needed
 when different than the language.}

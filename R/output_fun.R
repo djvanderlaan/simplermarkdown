@@ -19,6 +19,8 @@
 #'   when different than the language. 
 #' @param comment_char string prepended to output of commands run by
 #'   \code{output_shell}.
+#' @param formatter function that will format the R-code and resulting output
+#'   (if requested). See \code{\link{format_traditional}} for possible options.
 #'
 #' @details
 #' The filter functions \code{output_table} and \code{output_figure} call 
@@ -73,10 +75,12 @@ output_figure <- function(code, language = "R", id = "", ...) {
 #' @export
 #' 
 output_eval <- function(code, language = "R", id = "", echo = TRUE, 
-    results = TRUE, drop_empty = TRUE, eval = TRUE, ...) {
+    results = TRUE, drop_empty = TRUE, eval = TRUE, 
+    formatter = getOption("md_formatter", default = format_traditional), 
+    ...) {
   if (eval == FALSE) return(markdown_block(code, language, id, ...))
   res <- run_and_capture(code, results = results, echo = echo)
-  res <- format_traditional(res)
+  res <- formatter(res)
   res <- paste0(res, collapse="\n")
   if (drop_empty) {
     # Check if we have only empty lines or no lines at all; in that case

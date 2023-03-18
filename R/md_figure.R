@@ -20,6 +20,8 @@
 #' @param results include the results of running the code in the output. The 
 #'   output of code that explicitly writes to standard output is always 
 #'   included.
+#' @param formatter function that will format the R-code and resulting output
+#'   (if requested). See \code{\link{format_traditional}} for possible options.
 #'
 #' @details
 #' The image is stored in the file \code{dir/name.device}. 
@@ -34,7 +36,8 @@
 md_figure <- function(expr, name, caption = "", id = "",
     dir = file.path(Sys.getenv("MDOUTDIR", "."), "figures"), 
     device = c("png", "pdf"), ...,
-    as_character = FALSE, echo = FALSE, results = FALSE) {
+    as_character = FALSE, echo = FALSE, results = FALSE,
+    formatter = getOption("md_formatter", default = format_traditional)) {
   dir.create(dir, recursive = TRUE, showWarnings = FALSE)
   device <- match.arg(device)
   extension <- ""
@@ -51,12 +54,12 @@ md_figure <- function(expr, name, caption = "", id = "",
   expr <- if (is.expression(expr) || is.character(expr)) expr else 
     as.expression(substitute(expr))
   res <- run_and_capture(expr, results = results, echo = echo)
-  res <- format_traditional(res)
+  res <- formatter(res)
   res <- paste0(res, collapse="\n")
   # Check if, besides a figure, we also need to add the commands and
   # other output to the output
   if (echo || results) {
-    res <- paste0(c("\n```", res, "```\n"), collapse = "\n")
+    res <- paste0(c("\n```{.R}", res, "```\n"), collapse = "\n")
   } else res <- character(0)
   # Generate the markdown for the figure
   id_str <- if (!is.null(id) && id != "") 
