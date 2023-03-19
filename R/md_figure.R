@@ -60,7 +60,7 @@ md_figure <- function(expr, name, caption = "", id = "",
   expr <- if (is.expression(expr) || is.character(expr)) expr else 
     as.expression(substitute(expr))
   res <- run_and_capture(expr, results = results, echo = echo, 
-    capture_warnings = capture_warnings, capture_messages = capture_message,
+    capture_warnings = capture_warnings, capture_messages = capture_messages,
     muffle_warnings = muffle_warnings, muffle_messages = muffle_messages)
   res <- formatter(res)
   res <- paste0(res, collapse="\n")

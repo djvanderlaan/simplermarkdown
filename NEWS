@@ -1,7 +1,7 @@
 
-CHANGES IN SIMPLERMARKDOWN 0.0.6:
+Changes in version 0.0.6
 
-  NEW FEATURES:
+New features
 
   - New function `output_shell` that can be used to include and run non-R code
     blocks such as bash and python using `system2`. Code and output can be
@@ -17,7 +17,7 @@ CHANGES IN SIMPLERMARKDOWN 0.0.6:
     captures by default. For warnings the option `capture_warnings` has to
     be set to `TRUE`.
 
-  BUG FIXES:
+Bug fixes
 
   - When run from a non-interactive session the code is no longer reformatted.
 
@@ -27,10 +27,12 @@ CHANGES IN SIMPLERMARKDOWN 0.0.6:
     pandoc interfered with the procesessing of raw markdown blocks. This
     extension is now disabled.
 
-CHANGES IN SIMPLERMARKDOWN 0.0.4:
 
 
-  NEW FEATURES:
+
+Changes in version 0.0.4
+
+New features
 
   - `md_figure` and `output_figure` can now echo the commands used to generate the
     figure. Use the arguments `echo` and `results` for that. 
@@ -38,7 +40,7 @@ CHANGES IN SIMPLERMARKDOWN 0.0.4:
   - Errors with hopefully more informative error messages in case something goes 
     wrong with the calls to pandoc.
 
-  BUG FIXES:
+Bug fixes
 
   - Markdown documents without a header block would generate an error. Fixed.
 

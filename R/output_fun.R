@@ -86,7 +86,7 @@ output_eval <- function(code, language = "R", id = "", echo = TRUE,
     ...) {
   if (eval == FALSE) return(markdown_block(code, language, id, ...))
   res <- run_and_capture(code, results = results, echo = echo, 
-    capture_warnings = capture_warnings, capture_messages = capture_message,
+    capture_warnings = capture_warnings, capture_messages = capture_messages,
     muffle_warnings = muffle_warnings, muffle_messages = muffle_messages)
   res <- formatter(res)
   res <- paste0(res, collapse="\n")
