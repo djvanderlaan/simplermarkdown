@@ -22,6 +22,10 @@ output_eval(
   drop_empty = TRUE,
   eval = TRUE,
   formatter = getOption("md_formatter", default = format_traditional),
+  capture_warnings = FALSE,
+  capture_messages = results,
+  muffle_warnings = FALSE,
+  muffle_messages = TRUE,
   ...
 )
 
@@ -66,6 +70,14 @@ output.}
 
 \item{formatter}{function that will format the R-code and resulting output
 (if requested). See \code{\link{format_traditional}} for possible options.}
+
+\item{capture_warnings}{include warnings in the output.}
+
+\item{capture_messages}{include messages in the output.}
+
+\item{muffle_warnings}{do not show warnings in the console.}
+
+\item{muffle_messages}{do not show messages in the console.}
 
 \item{cmd}{the command to use in the \code{\link{system2}} call. Only needed
 when different than the language.}

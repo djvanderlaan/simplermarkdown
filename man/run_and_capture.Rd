@@ -4,7 +4,16 @@
 \alias{run_and_capture}
 \title{Run code and capture the output}
 \usage{
-run_and_capture(code, echo = TRUE, results = TRUE, output = results)
+run_and_capture(
+  code,
+  echo = TRUE,
+  results = TRUE,
+  output = results,
+  capture_warnings = FALSE,
+  capture_messages = results,
+  muffle_warnings = FALSE,
+  muffle_messages = TRUE
+)
 }
 \arguments{
 \item{code}{character vector or expression with the code to run}
@@ -15,6 +24,14 @@ run_and_capture(code, echo = TRUE, results = TRUE, output = results)
 
 \item{output}{include output that is explicitly written to the output, for
 example using \code{print} statements.}
+
+\item{capture_warnings}{include warnings in the output.}
+
+\item{capture_messages}{include messages in the output.}
+
+\item{muffle_warnings}{do not show warnings in the console.}
+
+\item{muffle_messages}{do not show messages in the console.}
 }
 \value{
 Returns a list. Each item of the list contains a list with elements

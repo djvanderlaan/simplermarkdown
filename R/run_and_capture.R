@@ -6,6 +6,10 @@
 #' @param results include the results of running the code in the output. 
 #' @param output include output that is explicitly written to the output, for 
 #'   example using \code{print} statements.
+#' @param capture_warnings include warnings in the output. 
+#' @param capture_messages include messages in the output. 
+#' @param muffle_warnings do not show warnings in the console.
+#' @param muffle_messages do not show messages in the console.
 #'
 #' @return
 #' Returns a list. Each item of the list contains a list with elements
@@ -16,26 +20,32 @@
 #'
 #' @export
 #' 
-run_and_capture <- function(code, echo = TRUE, results = TRUE, output = results) {
+run_and_capture <- function(code, echo = TRUE, results = TRUE, output = results, 
+    capture_warnings = FALSE, capture_messages = results, muffle_warnings = FALSE, 
+    muffle_messages = TRUE) {
   # Setup for running the code
   prompts <- list(prompt = "simplermarkdown1", 
       continue = "simplermarkdown2")
   # Run the code and capture the output
   if (is.character(code)) {
-    outp <- utils::capture.output(
+    outp <- capture_output(
       source(textConnection(code), echo = echo, spaced = FALSE,
         print.eval = results, max.deparse.length = Inf, 
         prompt.echo = prompts$prompt,
         continue.echo = prompts$continue,
-        keep.source = TRUE)
+        keep.source = TRUE),
+      capture_warnings = capture_warnings, capture_messages = capture_messages,
+      muffle_warnings = muffle_warnings, muffle_messages = muffle_messages
     )
   } else if (is.expression(code)) {
-    outp <- utils::capture.output(
+    outp <- capture_output(
       source(exprs = code, echo = echo, spaced = FALSE,
         print.eval = results, max.deparse.length = Inf, 
         prompt.echo = prompts$prompt,
         continue.echo = prompts$continue,
-        keep.source = TRUE)
+        keep.source = TRUE),
+      capture_warnings = capture_warnings, capture_messages = capture_messages,
+      muffle_warnings = muffle_warnings, muffle_messages = muffle_messages
     )
   }
   # Convert the output to something structured

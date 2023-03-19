@@ -27,4 +27,8 @@ test_reference:
 	cd inst/examples_output && R -e 'library(simplermarkdown);mdtangle("../examples/iris.md", "iris.R")'
 	cd inst/examples_output && R -e 'library(simplermarkdown);mdweave("../examples/example1.md", "example1.md")'
 	cd inst/examples_output && R -e 'library(simplermarkdown);mdtangle("../examples/example1.md", "example1.R")'
- 
+
+reverse_dependencies: build
+	cd work && rm -r -f revdep && mkdir revdep
+	cd work && mv `ls simplermarkdown_* | sort | tail -n 1` revdep
+	cd work && R -s -e "out <- tools::check_packages_in_dir('revdep',reverse=list(which='most'),Ncpus=3); print(summary(out)); saveRDS(out, file='revdep/output.RDS')"

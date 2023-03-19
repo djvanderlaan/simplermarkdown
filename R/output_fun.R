@@ -21,6 +21,10 @@
 #'   \code{output_shell}.
 #' @param formatter function that will format the R-code and resulting output
 #'   (if requested). See \code{\link{format_traditional}} for possible options.
+#' @param capture_warnings include warnings in the output. 
+#' @param capture_messages include messages in the output. 
+#' @param muffle_warnings do not show warnings in the console.
+#' @param muffle_messages do not show messages in the console.
 #'
 #' @details
 #' The filter functions \code{output_table} and \code{output_figure} call 
@@ -77,9 +81,13 @@ output_figure <- function(code, language = "R", id = "", ...) {
 output_eval <- function(code, language = "R", id = "", echo = TRUE, 
     results = TRUE, drop_empty = TRUE, eval = TRUE, 
     formatter = getOption("md_formatter", default = format_traditional), 
+    capture_warnings = FALSE, capture_messages = results, 
+    muffle_warnings = FALSE, muffle_messages = TRUE,
     ...) {
   if (eval == FALSE) return(markdown_block(code, language, id, ...))
-  res <- run_and_capture(code, results = results, echo = echo)
+  res <- run_and_capture(code, results = results, echo = echo, 
+    capture_warnings = capture_warnings, capture_messages = capture_message,
+    muffle_warnings = muffle_warnings, muffle_messages = muffle_messages)
   res <- formatter(res)
   res <- paste0(res, collapse="\n")
   if (drop_empty) {

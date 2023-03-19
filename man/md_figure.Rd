@@ -15,7 +15,11 @@ md_figure(
   as_character = FALSE,
   echo = FALSE,
   results = FALSE,
-  formatter = getOption("md_formatter", default = format_traditional)
+  formatter = getOption("md_formatter", default = format_traditional),
+  capture_warnings = FALSE,
+  capture_messages = results,
+  muffle_warnings = FALSE,
+  muffle_messages = TRUE
 )
 }
 \arguments{
@@ -47,6 +51,14 @@ included.}
 
 \item{formatter}{function that will format the R-code and resulting output
 (if requested). See \code{\link{format_traditional}} for possible options.}
+
+\item{capture_warnings}{include warnings in the output.}
+
+\item{capture_messages}{include messages in the output.}
+
+\item{muffle_warnings}{do not show warnings in the console.}
+
+\item{muffle_messages}{do not show messages in the console.}
 }
 \value{
 When \code{as_character = FALSE} a character vector with the markdown needed

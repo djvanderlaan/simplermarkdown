@@ -13,6 +13,10 @@ CHANGES IN SIMPLERMARKDOWN 0.0.6:
   - For `output_eval` additional arguments in the markdown header of the code 
     block (between the `{}`) are passed on to the output block.
 
+  - Warnings and messages can now also be captured in the output. Messages are
+    captures by default. For warnings the option `capture_warnings` has to
+    be set to `TRUE`.
+
   BUG FIXES:
 
   - When run from a non-interactive session the code is no longer reformatted.

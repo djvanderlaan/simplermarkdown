@@ -22,6 +22,10 @@
 #'   included.
 #' @param formatter function that will format the R-code and resulting output
 #'   (if requested). See \code{\link{format_traditional}} for possible options.
+#' @param capture_warnings include warnings in the output. 
+#' @param capture_messages include messages in the output. 
+#' @param muffle_warnings do not show warnings in the console.
+#' @param muffle_messages do not show messages in the console.
 #'
 #' @details
 #' The image is stored in the file \code{dir/name.device}. 
@@ -37,7 +41,9 @@ md_figure <- function(expr, name, caption = "", id = "",
     dir = file.path(Sys.getenv("MDOUTDIR", "."), "figures"), 
     device = c("png", "pdf"), ...,
     as_character = FALSE, echo = FALSE, results = FALSE,
-    formatter = getOption("md_formatter", default = format_traditional)) {
+    formatter = getOption("md_formatter", default = format_traditional), 
+    capture_warnings = FALSE, capture_messages = results, 
+    muffle_warnings = FALSE, muffle_messages = TRUE) {
   dir.create(dir, recursive = TRUE, showWarnings = FALSE)
   device <- match.arg(device)
   extension <- ""
@@ -53,7 +59,9 @@ md_figure <- function(expr, name, caption = "", id = "",
   # md_figure(str2expression("plot(1:10)"))
   expr <- if (is.expression(expr) || is.character(expr)) expr else 
     as.expression(substitute(expr))
-  res <- run_and_capture(expr, results = results, echo = echo)
+  res <- run_and_capture(expr, results = results, echo = echo, 
+    capture_warnings = capture_warnings, capture_messages = capture_message,
+    muffle_warnings = muffle_warnings, muffle_messages = muffle_messages)
   res <- formatter(res)
   res <- paste0(res, collapse="\n")
   # Check if, besides a figure, we also need to add the commands and
