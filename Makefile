@@ -30,5 +30,5 @@ test_reference:
 
 reverse_dependencies: build
 	cd work && rm -r -f revdep && mkdir revdep
-	cd work && mv `ls simplermarkdown_* | sort | tail -n 1` revdep
+	cd work && cp `ls simplermarkdown_* | sort | tail -n 1` revdep
 	cd work && R -s -e "out <- tools::check_packages_in_dir('revdep',reverse=list(which='most'),Ncpus=3); print(summary(out)); saveRDS(out, file='revdep/output.RDS')"
