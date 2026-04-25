@@ -9,7 +9,7 @@
 mdweave_to_pdf(
   fn,
   ofn = file_subs_ext(basename(fn), ".pdf", FALSE),
-  extra_arguments2 = "--self-contained",
+  extra_arguments2 = "--embed-resources --standalone",
   run_in_temp = TRUE,
   cmd2 = "pandoc \%3$s -s \\"\%1$s\\" -t latex -o \\"\%2$s\\"",
   ...
@@ -18,7 +18,7 @@ mdweave_to_pdf(
 mdweave_to_tex(
   fn,
   ofn = file_subs_ext(basename(fn), ".tex", FALSE),
-  extra_arguments2 = "--self-contained",
+  extra_arguments2 = "--embed-resources --standalone",
   run_in_temp = TRUE,
   cmd2 = "pandoc \%3$s -s \\"\%1$s\\" -t latex -o \\"\%2$s\\"",
   ...
@@ -27,7 +27,7 @@ mdweave_to_tex(
 mdweave_to_html(
   fn,
   ofn = file_subs_ext(basename(fn), ".html", FALSE),
-  extra_arguments2 = "--self-contained",
+  extra_arguments2 = "--embed-resources --standalone",
   run_in_temp = TRUE,
   cmd2 = "pandoc \%3$s -s \\"\%1$s\\" -t html -o \\"\%2$s\\"",
   ...

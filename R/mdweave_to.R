@@ -28,7 +28,7 @@
 #' @export
 #' @rdname mdweave_to
 mdweave_to_pdf <- function(fn, ofn = file_subs_ext(basename(fn), ".pdf", FALSE), 
-    extra_arguments2 = "--self-contained", run_in_temp = TRUE,
+    extra_arguments2 = "--embed-resources --standalone", run_in_temp = TRUE,
     cmd2 = 'pandoc %3$s -s "%1$s" -t latex -o "%2$s"', ...) {
   # Check if extension of ofn is .pdf; this is required by pandoc
   if (!grepl("\\.pdf$", ofn)) stop("ofn should have the extension .pdf.")
@@ -55,7 +55,7 @@ mdweave_to_pdf <- function(fn, ofn = file_subs_ext(basename(fn), ".pdf", FALSE),
 #' @export
 #' @rdname mdweave_to
 mdweave_to_tex <- function(fn, ofn = file_subs_ext(basename(fn), ".tex", FALSE), 
-    extra_arguments2 = "--self-contained", run_in_temp = TRUE,
+    extra_arguments2 = "--embed-resources --standalone", run_in_temp = TRUE,
     cmd2 = 'pandoc %3$s -s "%1$s" -t latex -o "%2$s"', ...) {
   if (grepl("\\.pdf$", ofn)) stop("ofn cannot have the extension .pdf.")
   # First convert fn to md using mdweave
@@ -82,7 +82,7 @@ mdweave_to_tex <- function(fn, ofn = file_subs_ext(basename(fn), ".tex", FALSE),
 #' @export
 #' @rdname mdweave_to
 mdweave_to_html <- function(fn, ofn = file_subs_ext(basename(fn), ".html", FALSE), 
-    extra_arguments2 = "--self-contained", run_in_temp = TRUE,
+    extra_arguments2 = "--embed-resources --standalone", run_in_temp = TRUE,
     cmd2 = 'pandoc %3$s -s "%1$s" -t html -o "%2$s"', ...) {
   # First convert fn to md using mdweave
   if (run_in_temp) {
