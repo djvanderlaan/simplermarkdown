@@ -1,4 +1,14 @@
 
+Changes in version 0.0.7
+
+Bug fixes
+
+  - Updated arguments to `pandoc`. Replaced deprecated `--self-contained` with
+    `--embed-resources --standalone`. (Pull request #29 by TroyHernandez)
+
+
+
+
 Changes in version 0.0.6
 
 New features
