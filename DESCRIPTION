@@ -1,23 +1,33 @@
 Package: simplermarkdown
 Title: Simple Engine for Generating Reports using R
-Version: 0.0.7
+Version: 0.1.0
 Authors@R: 
+    c(
     person(given = "Jan",
            family = "van der Laan",
            role = c("aut", "cre"),
-           email = "r@eoos.dds.nl",
-           comment = c(ORCID = "0000-0002-0693-1514"))
+           email = "jan@ntteloos.nl",
+           comment = c(ORCID = "0000-0002-0693-1514")
+    ),
+    person(given = "Troy",
+           family = "Hernandez",
+           role = "ctb",
+           email = "troy@cornball.ai",
+           comment = c(ORCID = "0009-0005-4248-604X")
+    ))
 Description: Runs R-code present in a pandoc markdown file and 
   includes the resulting output in the resulting markdown file. This
   file can then be converted into any of the output formats 
-  supported by pandoc. The package can also be used as an engine
-  for writing package vignettes. 
+  supported by pandoc. The package can also be used as an low dependency
+  engine for writing package vignettes. 
 BugReports: https://github.com/djvanderlaan/simplermarkdown/issues
 URL: https://github.com/djvanderlaan/simplermarkdown
 License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.3
+Depends:
+    R (>= 4.1.0)
 Imports: 
     rjson,
     tools
